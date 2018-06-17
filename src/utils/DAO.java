@@ -33,7 +33,7 @@ public class DAO extends HttpServlet {
     	
 		String user = "mysql";
 		String password = "prac";
-		String database = "BDriver";
+		String database = "kraan";
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		connection=DriverManager.getConnection("jdbc:mysql://localhost/"+database+"?user="+user+"&password="+password+"&useSSL=false");
 		
