@@ -21,6 +21,7 @@
 	            <span class="tag small theme-d1">Art</span>
 	            <span class="tag small theme">Food</span>
 	            <span class="tag small theme-l1">Technology</span>
+	            hola
 	          </p>
 	        </div>
 	      </div>
