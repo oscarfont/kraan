@@ -15,6 +15,8 @@ public class BeanUser implements Serializable  {
 	private String mail = "";
 	private String password = "";
 	private String description = "";
+	private String job = "";
+	private String location = "";
 	private String[] interests;
 	
 	
@@ -30,6 +32,8 @@ public class BeanUser implements Serializable  {
 	public String getGender() { return gender; }
 	public String getPassword() { return password; }
 	public String getDescription() { return description; }
+	public String getJob() { return job; }
+	public String getLocation() { return location; }
 	public String[] getInterests() { return interests; }
 	
 	
@@ -46,6 +50,8 @@ public class BeanUser implements Serializable  {
 	public void setGender(String gender) {	System.out.println("Filling gender field"); this.gender = gender; }
 	public void setPassword(String password) { System.out.println("Filling password field"); this.password = password; }
 	public void setDescription(String description) { System.out.println("Filling description field"); this.description = description; }
+	public void setJob(String job) { System.out.println("Filing job field"); this.job = job;}
+	public void setLocation(String location) {System.out.println("Filing location field"); this.location = location; }
 	public void setInterests(String[] interests) { System.out.println("Filling interests field"); this.interests = interests; }
 	public void setError(int[] newError){ this.error = newError; }
 	

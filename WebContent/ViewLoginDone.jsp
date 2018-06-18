@@ -11,6 +11,7 @@ $(document).ready(function() {
 });
 </script>
 <% String user = session.getAttribute("user").toString(); %>
+<% String location = null;%>
 
 
 <!-- Page Container -->
@@ -26,7 +27,8 @@ $(document).ready(function() {
 	         <h4 class="center">Welcome ${user}!</h4>
 	         <p class="center"><img src="images/img_avatar2.png" class="circle" style="height:106px;width:106px" alt="Avatar"></p>
 	         <hr>
-	         <p><i class="fa fa-pencil fa-fw margin-right text-theme"></i> Designer, UI</p>
+	         <%if(location == null){ location = "Barcelona"; } %>
+	         <p><i class="fa fa-pencil fa-fw margin-right text-theme"></i> Location: ${location}!</p>
 	         <p><i class="fa fa-home fa-fw margin-right text-theme"></i> London, UK</p>
 	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i> April 1, 1988</p>
 	        </div>
