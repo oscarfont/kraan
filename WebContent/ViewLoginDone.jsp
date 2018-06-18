@@ -3,6 +3,7 @@
     
 <script type="text/javascript">
 $(document).ready(function() {
+		$('#col').load('ProfileController');
 	    $.ajaxSetup({ cache: false }); // Avoids Internet Explorer caching!
 	    document.getElementById('log-body').style.display = 'none';
 	    $('#logout-button').load('MenuController');
@@ -11,7 +12,8 @@ $(document).ready(function() {
 });
 </script>
 <% String user = session.getAttribute("user").toString(); %>
-<% String location = null;%>
+<% //String job = session.getAttribute("job").toString();%>
+<% //String location = session.getAttribute("location").toString(); %>
 
 
 <!-- Page Container -->
@@ -20,15 +22,14 @@ $(document).ready(function() {
 	  <!-- The Grid -->
 	  <div class="row">
 	    <!-- Left Column -->
-	    <div class="col m3">
+	    <div class="col m3" id="userProfile">
 	      <!-- Profile -->
 	      <div class="card round white">
 	        <div class="container">
 	         <h4 class="center">Welcome ${user}!</h4>
 	         <p class="center"><img src="images/img_avatar2.png" class="circle" style="height:106px;width:106px" alt="Avatar"></p>
 	         <hr>
-	         <%if(location == null){ location = "Barcelona"; } %>
-	         <p><i class="fa fa-pencil fa-fw margin-right text-theme"></i> Location: ${location}!</p>
+	         <p><i class="fa fa-pencil fa-fw margin-right text-theme"></i> Location: </p>
 	         <p><i class="fa fa-home fa-fw margin-right text-theme"></i> London, UK</p>
 	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i> April 1, 1988</p>
 	        </div>

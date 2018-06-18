@@ -167,5 +167,16 @@ public class DAO extends HttpServlet {
 			login.setError(newError);
 		}
 	}
+	
+	public void profile(BeanUser user, String username) throws SQLException{
+		String jobQuery = "SELECT Job FROM Users WHERE Username = '" + username + "';";
+		ResultSet job = executeSQL(jobQuery);
+		//user.setJob(job.getString(1));
+		user.setJob("Modelo");
+		String locationQuery = "SELECT Location FROM Users WHERE Username = '" + username + "';";
+		ResultSet location = executeSQL(locationQuery);
+		//user.setLocation(location.getString(1));
+		user.setLocation("Barcelona");
+	}
 
 }
