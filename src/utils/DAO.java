@@ -90,8 +90,8 @@ public class DAO extends HttpServlet {
 			user.setPassword(salterPassword);
 			
 			// Create Query to insert User
-			String newUser = "INSERT INTO Users(Name, Surname, Gender, Username, Email, Password) VALUES(";
-			newUser = newUser + "'" + user.getName() + "', '" +  user.getSurname() + "', '" + user.getGender() + "', '" + user.getUser() + "', '" + user.getMail() + "', '" + user.getPassword() + "');";
+			String newUser = "INSERT INTO Users(Name, Surname, Gender, Username, Email, Password, IsAdmin) VALUES(";
+			newUser = newUser + "'" + user.getName() + "', '" +  user.getSurname() + "', '" + user.getGender() + "', '" + user.getUser() + "', '" + user.getMail() + "', '" + user.getPassword() + "', 0);";
 			
 			// Add User to table
 			System.out.println();

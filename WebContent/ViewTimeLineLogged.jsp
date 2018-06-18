@@ -37,7 +37,7 @@
 	          <div class="card round white">
 	            <div class="container padding">
 	              <p contenteditable="true" class="border padding">Status: Feeling Blue</p>
-	              <button type="button" class="button theme"><i class="fa fa-pencil"></i> Tweet</button> 
+	              <button id="tweet-button" class="button theme"><i class="fa fa-pencil"></i>Tweet</button> 
 	            </div>
 	          </div>
 	        </div>
@@ -141,5 +141,8 @@
 	};
 	</script>
 	
-	</div>
 </div>
+
+<script>
+
+</script>

@@ -87,7 +87,7 @@
 	  <div align="center">
 			<small style='color:White'>¿Don't you want to Register?</small>
 			<small style='color:White'>Enter as anonymous User</small><br><br>
-			<a id="anonymous-button" href=# class="button" style="width:45%;background-color:#ced4da"/>Anonymous</a>
+			<a id="anonymous-button" href=# class="button" style="width:45%;background-color:#ced4da">Anonymous</a>
 			<br><br><br>
 	  </div>
     </div>
