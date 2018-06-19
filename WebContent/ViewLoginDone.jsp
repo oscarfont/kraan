@@ -14,7 +14,11 @@ $(document).ready(function() {
 
 <% BeanUser user = (BeanUser) request.getAttribute("user"); %>
 <% String username = user.getName(); %>
-<% //System.out.println(user.getJob()); %>
+<%System.out.println(username); %>
+<% String job = user.getJob(); %>
+<%System.out.println(job); %>
+<% String location = user.getLocation(); %>
+<%System.out.println(location); %>
 
 <!-- Page Container -->
 <div id="login-content">
@@ -26,11 +30,11 @@ $(document).ready(function() {
 	      <!-- Profile -->
 	      <div class="card round white">
 	        <div class="container">
-	         <h4 class="center">Welcome !</h4>
+	         <h4 class="center">Welcome ${user.name}!</h4>
 	         <p class="center"><img src="images/img_avatar2.png" class="circle" style="height:106px;width:106px" alt="Avatar"></p>
 	         <hr>
-	         <p><i class="fa fa-pencil fa-fw margin-right text-theme"></i> Location: </p>
-	         <p><i class="fa fa-home fa-fw margin-right text-theme"></i> London, UK</p>
+	         <p><i class="fa fa-pencil fa-fw margin-right text-theme"></i>${user.job}</p>
+	         <p><i class="fa fa-home fa-fw margin-right text-theme"></i>${user.location}</p>
 	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i> April 1, 1988</p>
 	        </div>
 	      </div>
