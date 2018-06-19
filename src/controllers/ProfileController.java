@@ -51,7 +51,10 @@ public class ProfileController extends HttpServlet {
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewLoginDone.jsp");
 			dispatcher.include(request, response);
-			response.getWriter().append("Served at: ").append(request.getContextPath());
+			//response.getWriter().append("Served at: ").append(request.getContextPath());
+			
+			System.out.println(user.getLocation());
+			System.out.println(user.getJob());
 			
 			
 			

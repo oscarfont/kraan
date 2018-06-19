@@ -3,7 +3,7 @@
     
 <script type="text/javascript">
 $(document).ready(function() {
-		$('#col').load('ProfileController');
+		//$('#userProfile').load('ProfileController');
 	    $.ajaxSetup({ cache: false }); // Avoids Internet Explorer caching!
 	    document.getElementById('log-body').style.display = 'none';
 	    $('#logout-button').load('MenuController');
@@ -12,8 +12,7 @@ $(document).ready(function() {
 });
 </script>
 <% String user = session.getAttribute("user").toString(); %>
-<% //String job = session.getAttribute("job").toString();%>
-<% //String location = session.getAttribute("location").toString(); %>
+
 
 
 <!-- Page Container -->
@@ -71,7 +70,7 @@ $(document).ready(function() {
 	           </div>
 	         </div>
 	          </div>
-	        </div>      
+	        </div>    
 	      </div>
 	      <br>
 	      

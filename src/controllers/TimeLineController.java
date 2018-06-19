@@ -30,6 +30,8 @@ public class TimeLineController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		System.out.println("TimeLineController.");
+		
 		HttpSession session = request.getSession();
 		
 		if (session.getAttribute("user") != null) {
