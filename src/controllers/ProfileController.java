@@ -46,15 +46,14 @@ public class ProfileController extends HttpServlet {
 			String username = session.getAttribute("user").toString(); 
 			DAO dao = new DAO();
 			dao.profile(user, username);
-			request.setAttribute("location", user.getLocation());
-			request.setAttribute("job", user.getJob());
+			request.setAttribute("user", user);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewLoginDone.jsp");
-			dispatcher.include(request, response);
+			dispatcher.forward(request, response);
 			//response.getWriter().append("Served at: ").append(request.getContextPath());
 			
-			System.out.println(user.getLocation());
-			System.out.println(user.getJob());
+			//System.out.println(user.getLocation());
+			//System.out.println(user.getJob());
 			
 			
 			

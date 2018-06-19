@@ -33,7 +33,7 @@
 	  <a class="bar-item button hide-medium hide-large right padding-large hover-white large theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
 	  <a href="#" class="bar-item button padding-large theme-d4" id="kraan-button"><i class="fa fa-home margin-right"></i>Kraan</a>
 	  <a id="timeline-button" href="#" class="bar-item button hide-small padding-large hover-white" title="TimeLine"><i class="fa fa-globe"></i></a>
-	  <a href="#" class="bar-item button hide-small padding-large hover-white" title="Account Settings"><i class="fa fa-user"></i></a>
+	  <a id="profile-button" href="#" class="bar-item button hide-small padding-large hover-white" title="Account Settings"><i class="fa fa-user"></i></a>
 	  <a href="#" class="bar-item button hide-small padding-large hover-white" title="Messages"><i class="fa fa-envelope"></i></a>
 	  <div class="dropdown-hover hide-small">
 	    <button class="button padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="badge right small green">3</span></button>     
@@ -116,7 +116,12 @@
 </body>
 <script>
 $('#kraan-button').click(function() {
+	//ESTO ESTA GIÑAO
     location.reload();
+});
+
+$('#profile-button').click(function() {
+    $('#main-page').load('ProfileController');
 });
 
 // Enter Kraan as anonymous

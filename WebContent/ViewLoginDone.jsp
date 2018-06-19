@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" session="true"%>
-    
+    pageEncoding="UTF-8" import="models.BeanUser" session="true"%>
+  
 <script type="text/javascript">
 $(document).ready(function() {
 		//$('#userProfile').load('ProfileController');
@@ -11,9 +11,10 @@ $(document).ready(function() {
 	    document.body.className = "theme-l5";
 });
 </script>
-<% String user = session.getAttribute("user").toString(); %>
 
-
+<% BeanUser user = (BeanUser) request.getAttribute("user"); %>
+<% String username = user.getName(); %>
+<% //System.out.println(user.getJob()); %>
 
 <!-- Page Container -->
 <div id="login-content">
@@ -25,7 +26,7 @@ $(document).ready(function() {
 	      <!-- Profile -->
 	      <div class="card round white">
 	        <div class="container">
-	         <h4 class="center">Welcome ${user}!</h4>
+	         <h4 class="center">Welcome !</h4>
 	         <p class="center"><img src="images/img_avatar2.png" class="circle" style="height:106px;width:106px" alt="Avatar"></p>
 	         <hr>
 	         <p><i class="fa fa-pencil fa-fw margin-right text-theme"></i> Location: </p>
