@@ -9,8 +9,6 @@ $(document).ready(function() {
 	    document.body.className = "theme-l5";
 });
 </script>
-    
-    <% System.out.println("TimeLine.jsp"); %>
 	
 <!-- Page Container -->
 <div id="timeline-content">
@@ -42,17 +40,9 @@ $(document).ready(function() {
 	    <!-- Middle Column -->
 	    <div class="col m7">
 		<p> Middle Column of timeline </p>
-
-		<div class="row-padding">
-	        <div class="col m12">
-	          <div class="card round white">
-	            <div class="container padding">
-	              <p contenteditable="true" class="border padding">Status: Feeling Blue</p>
-	              <button id="tweet-button" class="button theme"><i class="fa fa-pencil"></i>Tweet</button> 
-	            </div>
-	          </div>
-	        </div>
-	      </div>
+		
+		<!-- Tweet -->
+		<jsp:include page="ViewPublishTweet.jsp" />
 		  
 	      <div class="container card white round margin"><br>
 	        <img src="images/img_avatar2.png" alt="Avatar" class="left circle margin-right" style="width:60px">
@@ -153,7 +143,3 @@ $(document).ready(function() {
 	</script>
 	
 </div>
-
-<script>
-
-</script>

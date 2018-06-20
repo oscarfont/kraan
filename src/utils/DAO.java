@@ -176,13 +176,20 @@ public class DAO extends HttpServlet {
 		String jobQuery = "SELECT Job FROM Users WHERE Username = '" + username + "';";
 		ResultSet job = executeSQL(jobQuery);
 		//Aqui tractar el tema de que no hi hagi resultset
-		job.first();
-		user.setJob(job.getString(1));
+		if(job.first()){
+			user.setJob(job.getString(1));
+		}else{
+			user.setJob("");
+		}
 		String locationQuery = "SELECT Location FROM Users WHERE Username = '" + username + "';";
 		ResultSet location = executeSQL(locationQuery);
 		//Aqui tractar el tema de que no hi hagi resultset
-		location.first();
-		user.setLocation(location.getString(1));
+		if(location.first()){
+			user.setLocation(location.getString(1));
+		}else{
+			user.setLocation("");
+		}
+		
 	}
 
 }

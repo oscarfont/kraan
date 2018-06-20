@@ -53,15 +53,15 @@ public class LoginController extends HttpServlet {
 		    		HttpSession session = request.getSession();
 		    		
 		    		if(session.getAttribute("user") == null){
-		    			session.setAttribute("user",login.getUser());
+		    			session.setAttribute("user",login);
 		    		}
 		    		
-			    	RequestDispatcher dispatcher = request.getRequestDispatcher("ViewTimeLineLogged.jsp");
+			    	RequestDispatcher dispatcher = request.getRequestDispatcher("ViewLoginDone.jsp");
 				    dispatcher.forward(request, response);
 		    	}
 		    	else{
 		    		
-				    request.setAttribute("login",login);
+				    //request.setAttribute("login",login);
 				    RequestDispatcher dispatcher = request.getRequestDispatcher("ViewLoginForm.jsp");
 				    dispatcher.forward(request, response);
 		    	}
