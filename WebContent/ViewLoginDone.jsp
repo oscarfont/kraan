@@ -13,12 +13,6 @@ $(document).ready(function() {
 </script>
 
 <% BeanUser user = (BeanUser) request.getAttribute("user"); %>
-<% String username = user.getName(); %>
-<%System.out.println(username); %>
-<% String job = user.getJob(); %>
-<%System.out.println(job); %>
-<% String location = user.getLocation(); %>
-<%System.out.println(location); %>
 
 <!-- Page Container -->
 <div id="login-content">
