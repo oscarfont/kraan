@@ -169,8 +169,10 @@ public class DAO extends HttpServlet {
 	}
 	
 	public void profile(BeanUser user, String username) throws SQLException{
+
 		String nameQuery = "SELECT Name FROM Users WHERE Username = '" + username + "';";
 		ResultSet name = executeSQL(nameQuery);
+		System.out.println(nameQuery);
 		name.first();
 		user.setName(name.getString(1));
 		String jobQuery = "SELECT Job FROM Users WHERE Username = '" + username + "';";
@@ -178,16 +180,20 @@ public class DAO extends HttpServlet {
 		//Aqui tractar el tema de que no hi hagi resultset
 		if(job.first()){
 			user.setJob(job.getString(1));
+			System.out.println(job.getString(1));
 		}else{
-			user.setJob("");
+			user.setJob("nada");
 		}
 		String locationQuery = "SELECT Location FROM Users WHERE Username = '" + username + "';";
+		System.out.println(locationQuery);
 		ResultSet location = executeSQL(locationQuery);
 		//Aqui tractar el tema de que no hi hagi resultset
+		//Mirar nomes la location, if(location.getString(1) == NULL)
 		if(location.first()){
 			user.setLocation(location.getString(1));
+			System.out.println(location.getString(1));
 		}else{
-			user.setLocation("");
+			user.setLocation("nada");
 		}
 		
 	}
