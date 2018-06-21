@@ -44,5 +44,25 @@ $(document).ready(function(){
  <div class="center">
    <input type="submit" class="button theme" value="Send"><br><br>
  </div>
+ 
+<!-- Anonymous -->
+<div class="margin-top" align="center">
+<small>
+¿Don't you want to Register?<br>
+Enter as anonymous User<br>
+</small>
+<a id="anonymous-button" href=# class="button margin-bottom" style="width:45%;background-color:#ced4da;margin-top:10px;">Anonymous</a>
+</div>
+ 
 </form>
 </div>
+
+<script>
+//Enter Kraan as anonymous
+$('#anonymous-button').click(function() {
+	$("#log-body").hide();
+	$("#web-body").show();
+	document.body.className = "theme-l5";
+	$('#main-page').load('TimeLineController');
+});
+</script>

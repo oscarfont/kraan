@@ -4,8 +4,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	    $.ajaxSetup({ cache: false }); //Avoids Internet Explorer caching!
-        $('#navigation').load('MenuController');   
+        $('#navigation').load('MenuController');
+        $('#content').load('LoginController');
+        $('#logout-msg').append("<small style='color:LightCoral'>Logout done!</small>");
 });
 </script>
-
-<p id="nav"> Logout done! </p>

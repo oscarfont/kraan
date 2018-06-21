@@ -34,8 +34,8 @@ public class BeanLogin {
 		BeanTweet tweet = new BeanTweet();
 		tweet.setAction(action);
 		tweet.setContent(tweetContent);
-		//DEBUG
-		System.out.println(tweetContent);
+		/*DEBUG
+		System.out.println(tweetContent);*/
 		long time = System.currentTimeMillis();
 		java.sql.Date date = new java.sql.Date(time);
 		tweet.setDate(date);

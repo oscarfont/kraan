@@ -20,20 +20,19 @@
 	if(session.getAttribute("user") != null){
 		user = session.getAttribute("user").toString(); 
 	}
-
 %>
 
 <body>
 
 <!-- Logged -->
 <div id="web-body" style="display:none">
-	<!-- Navbar -->
-	<div class="top">
-	 <div class="bar theme-d2 left-align large">
-	  <a class="bar-item button hide-medium hide-large right padding-large hover-white large theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+  <!-- Navbar -->
+  <div class="top">
+    <div class="bar theme-d2 left-align large">
+      <a class="bar-item button hide-medium hide-large right padding-large hover-white large theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
 	  <a href="#" class="bar-item button padding-large theme-d4" id="kraan-button"><i class="fa fa-home margin-right"></i>Kraan</a>
 	  <a id="timeline-button" href="#" class="bar-item button hide-small padding-large hover-white" title="TimeLine"><i class="fa fa-globe"></i></a>
-	  <a id="profile-button" href="#" class="bar-item button hide-small padding-large hover-white" title="Account Settings"><i class="fa fa-user"></i></a>
+	  <a id="profile-button" href="#" class="bar-item button hide-small padding-large hover-white" title="User Profile"><i class="fa fa-user"></i></a>
 	  <a href="#" class="bar-item button hide-small padding-large hover-white" title="Messages"><i class="fa fa-envelope"></i></a>
 	  <div class="dropdown-hover hide-small">
 	    <button class="button padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="badge right small green">3</span></button>     
@@ -43,20 +42,25 @@
 	      <a href="#" class="bar-item button">Jane likes your post</a>
 	    </div>
 	  </div>
-	  <div id="logout-button" style="float:right"></div>
-	 </div>
-	</div>
-  	<div id="main-page">
-  		<!-- Check if session exists -->
-		<c:if test="${user != null}">
-			<script>
-				if($('#login-content').length) {
-					$('#login-content').remove();
-				}
-			</script>
-			<jsp:include page="ViewLoginDone.jsp" />
-		</c:if>		  
-   	</div>
+	  <div id="logout-button" class="right"></div>
+	  <input type="text" id="search-text" class="search-bar right" style="margin-right:10px" placeholder="Search user...">
+      <button type="button" id="search-button" class="search-bar theme-l1 right"><i class="fa fa-search"></i></button>
+    </div>
+  <div id="search-done"></div>
+  </div>
+</div>
+
+<div id="main-page">
+<!-- Check if session exists -->
+<c:if test="${user != null}">
+	<script>
+		if($('#login-content').length) {
+			$('#login-content').remove();
+		}
+	</script>
+	<jsp:include page="ViewLoginDone.jsp" />
+	<script>$("#logout-button").show();</script>
+</c:if>		  
 </div>
 
 <!-- Include the login register menu only if there is no session -->
@@ -80,15 +84,10 @@
         <div id="navigation">
 	    	<jsp:include page="ViewMenuNotLogged.jsp" />   
 		</div>
+		<div id="logout-msg"></div>
       	<div id="content">
        		<jsp:include page="ViewLoginForm.jsp" />			  
        	</div>
-	  </div>
-	  <div align="center">
-			<small style='color:White'>¿Don't you want to Register?</small>
-			<small style='color:White'>Enter as anonymous User</small><br><br>
-			<a id="anonymous-button" href=# class="button" style="width:45%;background-color:#ced4da">Anonymous</a>
-			<br><br><br>
 	  </div>
     </div>
     
@@ -104,19 +103,18 @@
 <!-- End Page Container -->
 </div>		
 
-
+<!-- No session -->
 <c:if test="${user == null}">
 	<script>
 		document.body.className = "theme-l6";
-		//document.getElementById('log-body').style = 'inline';
 		$("#log-body").show();
+		//$("#logout-button").hide();
 	</script>
 </c:if>	
 	
 </body>
 <script>
 $('#kraan-button').click(function() {
-	//ESTO ESTA GIÑAO
     location.reload();
 });
 
@@ -124,17 +122,16 @@ $('#profile-button').click(function() {
     $('#main-page').load('ProfileController');
 });
 
-// Enter Kraan as anonymous
-$('#anonymous-button').click(function() {
-	$("#log-body").hide();
-	$("#web-body").show();
-	document.body.className = "theme-l5";
-	$('#main-page').load('TimeLineController');
-});
-
 // View Time Line with button
 $('#timeline-button').click(function() {
 	$('#main-page').load('TimeLineController');
+})
+
+// Search users
+$('#search-button').click(function() {
+	var info = $('#search-text').val();
+	$('#search-done').load('SearchController',{content:info});
+	//$('#search-done').append('<button>Hola!</button>'); 
 })
 </script>
 

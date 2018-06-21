@@ -4,7 +4,6 @@
   
 <script type="text/javascript">
 $(document).ready(function() {
-		//$('#userProfile').load('ProfileController');
 	    $.ajaxSetup({ cache: false }); // Avoids Internet Explorer caching!
 	    document.getElementById('log-body').style.display = 'none';
 	    $('#logout-button').load('MenuController');
@@ -13,7 +12,13 @@ $(document).ready(function() {
 });
 </script>
 
-<% BeanUser user = (BeanUser) request.getAttribute("user"); %>
+<% BeanUser user = (BeanUser) request.getAttribute("user"); 
+
+String admin = null;
+if(session.getAttribute("admin") != null){
+	admin = session.getAttribute("admin").toString(); 
+}
+%>
 
 <!-- Page Container -->
 <div id="login-content">
@@ -26,26 +31,23 @@ $(document).ready(function() {
 	      <div class="card round white">
 	        <div class="container">
 	         <h4 class="center">Welcome ${user.name}!</h4>
+	         <div class="center" id="welcome"></div>
 	         <p class="center"><img src="images/img_avatar2.png" class="circle" style="height:106px;width:106px" alt="Avatar"></p>
 	         <hr>
 	         <p><i class="fa fa-pencil fa-fw margin-right text-theme"></i>
 				<%if(user.getJob().equals("null")){ %>
 					esnull.
 				<%} else{ %>
-					pizzas.
+					${user.job }
 				<%} %>
 	         </p>
 	         <p><i class="fa fa-home fa-fw margin-right text-theme"></i>
-	         	<c:choose>
-				    <c:when test="${user.location==''}">
-				        esnull. 
-				        <br />
-				    </c:when>    
-				    <c:otherwise>
-				        pizzas. 
-				        <br />
-				    </c:otherwise>
-				</c:choose>
+				<%if(user.getLocation().equals("null")){ %>
+					esnull.
+				<%} else{ %>
+					${user.location}
+				<%} %>
+	         </p>
 	         </p>
 	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i> April 1, 1988</p>
 	        </div>
@@ -122,17 +124,6 @@ $(document).ready(function() {
 	    
 	    <!-- Middle Column -->
 	    <div class="col m7">
-	    
-	      <div class="row-padding">
-	        <div class="col m12">
-	          <div class="card round white">
-	            <div class="container padding">
-	              <p contenteditable="true" class="border padding">Status: Feeling Blue</p>
-	              <button type="button" class="button theme"><i class="fa fa-pencil"></i> Tweet</button> 
-	            </div>
-	          </div>
-	        </div>
-	      </div>
 	      
 	      <div class="container card white round margin"><br>
 	        <img src="images/img_avatar2.png" alt="Avatar" class="left circle margin-right" style="width:60px">
@@ -231,33 +222,39 @@ $(document).ready(function() {
 	
 	<!-- Footer -->
 	<footer class="container theme-d3 padding-16">
-	  <h5>Footer</h5>
+	  <h5>&copy; EPAW, 2018.</h5>
+	  <small>Marc Canal, Óscar Font & Lucía Gasión.</small>
 	</footer>
-	 
-	<script>
-	// Accordion
-	function myFunction(id) {
-	    var x = document.getElementById(id);
-	    if (x.className.indexOf("show") == -1) {
-	        x.className += " show";
-	        x.previousElementSibling.className += " theme-d1";
-	    } else { 
-	        x.className = x.className.replace("show", "");
-	        x.previousElementSibling.className = 
-	        x.previousElementSibling.className.replace(" theme-d1", "");
-	    }
-	};
-	
-	// Used to toggle the menu on smaller screens when clicking on the menu button
-	function openNav() {
-	    var x = document.getElementById("navDemo");
-	    if (x.className.indexOf("show") == -1) {
-	        x.className += " show";
-	    } else { 
-	        x.className = x.className.replace(" show", "");
-	    }
-	};
-	</script>
-	
-	</div>
 </div>
+
+<script>
+// Accordion
+function myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("show") == -1) {
+        x.className += " show";
+        x.previousElementSibling.className += " theme-d1";
+    } else { 
+        x.className = x.className.replace("show", "");
+        x.previousElementSibling.className = 
+        x.previousElementSibling.className.replace(" theme-d1", "");
+    }
+};
+
+// Used to toggle the menu on smaller screens when clicking on the menu button
+function openNav() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("show") == -1) {
+        x.className += " show";
+    } else { 
+        x.className = x.className.replace(" show", "");
+    }
+};
+
+//test admin
+$(document).ready(function() {
+	$('#welcome').load('AdminController');
+});
+</script>
+	
+

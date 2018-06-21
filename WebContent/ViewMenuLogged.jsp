@@ -11,5 +11,5 @@ $(document).ready(function() {
     });
 });
 </script>
-	<a type="submit" id="LogoutController" href=# class="bar-item button padding-large theme-d4" style="float:right">Logout</a>
-<br>
+
+<a type="submit" id="LogoutController" href=# class="bar-item button padding-large theme-d4" style="float:right">Logout</a>
