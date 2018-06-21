@@ -179,8 +179,13 @@ public class DAO extends HttpServlet {
 		ResultSet job = executeSQL(jobQuery);
 		//Aqui tractar el tema de que no hi hagi resultset
 		if(job.first()){
-			user.setJob(job.getString(1));
-			System.out.println(job.getString(1));
+			String result = job.getString(1);
+			/*if(!result.equals("NULL")){
+				user.setJob(result);
+				System.out.println(job.getString(1));
+			}*/
+			user.setJob("Modelo");
+			
 		}else{
 			user.setJob("nada");
 		}
@@ -190,8 +195,13 @@ public class DAO extends HttpServlet {
 		//Aqui tractar el tema de que no hi hagi resultset
 		//Mirar nomes la location, if(location.getString(1) == NULL)
 		if(location.first()){
-			user.setLocation(location.getString(1));
-			System.out.println(location.getString(1));
+			String result = location.getString(1);
+			/*if(!result.equals("NULL")){
+				user.setLocation(result);
+				System.out.println(location.getString(1));
+			}*/
+			user.setLocation("Barcelona");
+			
 		}else{
 			user.setLocation("nada");
 		}
