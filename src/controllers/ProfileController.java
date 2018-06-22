@@ -38,14 +38,21 @@ public class ProfileController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("Profile Controller");
+		String owner = (String) request.getParameter("own_profile");
+		System.out.println(owner);
 		BeanUser user = new BeanUser();
+		String username = null;
 		
 		try {
 
 			BeanUtils.populate(user, request.getParameterMap());
 			HttpSession session = request.getSession();
 			BeanLogin userlogin = (BeanLogin) session.getAttribute("user");
-			String username = userlogin.getUser();
+			if(owner.equals("Yes")){
+				username = userlogin.getUser();
+			}else{
+				username = owner;
+			}
 			DAO dao = new DAO();
 			dao.profile(user, username);
 			//System.out.println(user.getJob());

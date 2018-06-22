@@ -8,7 +8,7 @@
   </span>
   <c:if test="${searchUser != 'notfound'}">
 	<c:forEach items="${userList}" var="us">
-		<button id="${us}" class="search-user bold">@${us}</button>
+		<button id="${us}" class="search-user bold" onclick="gotoProfile(this.id)">@${us}</button>
 	</c:forEach>
   </c:if>
   <c:if test="${searchUser == 'notfound'}">
@@ -24,7 +24,11 @@ $('#search-result').click(function(){
 	   //AQUI HEMOS GUARDADO LA ID DEL BOTON CLICADO,
 	   //QUE ES EL NOMBRE DEL USUARIO
 	   //CAMBIAR ESTO DE ABAJO PARA QUE LINKE CON EL PERFIL
-	   $('#main-page').load('TimeLineController');
+	   $('#main-page').load('ProfileController');
 	});
 });
+
+function gotoProfile(id){
+	$('#main-page').load('ProfileController', {own_profile:id});
+}
 </script>

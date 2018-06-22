@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="models.BeanUser" session="true"%>
+    pageEncoding="UTF-8" import="models.BeanUser" import="models.BeanLogin" session="true"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
   
 <script type="text/javascript">
@@ -13,8 +13,12 @@ $(document).ready(function() {
 </script>
 
 <% BeanUser user = (BeanUser) request.getAttribute("user"); 
+BeanLogin userLogin = (BeanLogin) session.getAttribute("user");
 
 String admin = null;
+String sessionUsername = userLogin.getUser();
+String requestUsername = user.getName();
+
 if(session.getAttribute("admin") != null){
 	admin = session.getAttribute("admin").toString(); 
 }
@@ -250,11 +254,16 @@ function openNav() {
         x.className = x.className.replace(" show", "");
     }
 };
-
-//test admin
-$(document).ready(function() {
-	$('#welcome').load('AdminController');
-});
 </script>
+
+<c:if test="${sessionUsername == requestUsername}">
+	<script>
+		//test admin
+		$(document).ready(function() {
+			$('#welcome').load('AdminController');
+		});
+	</script>
+</c:if>	
+
 	
 

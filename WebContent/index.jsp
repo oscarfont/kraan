@@ -119,7 +119,8 @@ $('#kraan-button').click(function() {
 });
 
 $('#profile-button').click(function() {
-    $('#main-page').load('ProfileController');
+	var owner = "Yes";
+    $('#main-page').load('ProfileController', {own_profile:owner});
 });
 
 // View Time Line with button
