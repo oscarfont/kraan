@@ -44,6 +44,7 @@ public class AdminController extends HttpServlet {
 				if(checkQuery.getInt("U.IsAdmin") == 1) {
 					session.setAttribute("admin", "admin");
 					
+					
 					RequestDispatcher dispatcher = request.getRequestDispatcher("ViewAdmin.jsp");
 					dispatcher.forward(request, response);
 				}
