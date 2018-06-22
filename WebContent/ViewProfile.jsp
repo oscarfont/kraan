@@ -16,8 +16,11 @@ $(document).ready(function() {
 BeanLogin userLogin = (BeanLogin) session.getAttribute("user");
 
 String admin = null;
+String yes = "Yes";
 String sessionUsername = userLogin.getUser();
 String requestUsername = user.getName();
+String isUser = (String) request.getAttribute("own_profile");
+System.out.println("holi" + isUser);
 
 if(session.getAttribute("admin") != null){
 	admin = session.getAttribute("admin").toString(); 
@@ -54,6 +57,10 @@ if(session.getAttribute("admin") != null){
 	         </p>
 	         </p>
 	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i> April 1, 1988</p>
+	         <c:if test="${isUser.equals(yes)}">
+	            <hr>
+				<div class="center"><button class="button theme-d5 margin-bottom" style="width:50%">Follow</button></div>
+			 </c:if>	
 	        </div>
 	      </div>
 	      <br>

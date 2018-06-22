@@ -90,6 +90,7 @@ public class DAO extends HttpServlet {
 			user.setPassword(salterPassword);
 			
 			// Create Query to insert User
+			// TODO replaceAll("'", "''") a todas las variables que se le pasan
 			String newUser = "INSERT INTO Users(Name, Surname, Gender, Username, Email, Password, IsAdmin) VALUES(";
 			newUser = newUser + "'" + user.getName() + "', '" +  user.getSurname() + "', '" + user.getGender() + "', '" + user.getUser() + "', '" + user.getMail() + "', '" + user.getPassword() + "', 0);";
 			

@@ -58,6 +58,7 @@ public class ProfileController extends HttpServlet {
 			//System.out.println(user.getJob());
 			//System.out.println(user.getLocation());
 			request.setAttribute("user", user);
+			request.setAttribute("own_profile", owner);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewProfile.jsp");
 			dispatcher.forward(request, response);
