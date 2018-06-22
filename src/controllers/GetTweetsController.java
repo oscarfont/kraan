@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -60,14 +61,41 @@ public class GetTweetsController extends HttpServlet {
 		try {
 			DAO dao = new DAO();
 			
-			// Generate Query to DB
-			int number_of_tweets = 3;
+			// Generate Query to get Tweets from DB
+			int number_of_tweets = 4;
 			String getTweetsQuery = "SELECT * FROM Tweet LIMIT " + Integer.toString(number_of_tweets) + ";";
 			ResultSet tweet_rows = dao.executeSQL(getTweetsQuery);
 			
 			// Fill Beantweet[]
 			BeanTweet[] tweets = new BeanTweet[number_of_tweets];
 			fillBeanTweetsArray(tweets,tweet_rows);
+			
+			// If tweets have interests get them
+			String interestsQuery = "SELECT Interest FROM tweet_has_interests WHERE Tweet_Id =";
+			
+			for (int i = 0; i < tweets.length; i++){
+				
+				// complete query
+				interestsQuery += tweets[i].getId() + ";";
+				ResultSet interest_rows = dao.executeSQL(interestsQuery);
+				
+				// Restart string query
+				interestsQuery = "SELECT Interest FROM tweet_has_interests WHERE Tweet_Id =";
+				
+				// if tweet has interests
+				ArrayList<String> interest_array = new ArrayList<String>();
+				while(interest_rows.next()){
+					String interest = interest_rows.getString("Interest");
+					interest_array.add(interest);
+				}
+				
+				if(!interest_array.isEmpty()){
+					String[] interests = new String[interest_array.size()];
+					interests = interest_array.toArray(interests);
+					// update tweet
+					tweets[i].setInterests(interests);
+				}
+			}
 			
 			//pass tweets to request
 			request.setAttribute("tweets", tweets);

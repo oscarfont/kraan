@@ -15,6 +15,7 @@ public class BeanTweet {
 	private int likes;
 	// 0: publish, 1: delete -> the Tweet 
 	private int action;
+	private String[] interests;
 	
 	// Getters
 	public int getId() {return id;}
@@ -23,6 +24,7 @@ public class BeanTweet {
 	public Date getDate() {return date;}
 	public int getLikes() {return likes;}
 	public int getAction() {return action;}
+	public String[] getInterests() {return interests;}
 	
 	// Setters
 	public void setId(int id) {this.id = id;}
@@ -31,6 +33,7 @@ public class BeanTweet {
 	public void setDate(Date date) {this.date = date;}
 	public void setLikes(int likes) {this.likes = likes;}
 	public void setAction(int action) {this.action = action;}
+	public void setInterests(String[] interests) {this.interests = interests;}
 	
 	
 	// Publish Tweets
@@ -57,7 +60,7 @@ public class BeanTweet {
 			int Id = IDs.getInt("Tweet_id");
 			
 			// If the tweet has Interests
-			if(Interests != null){
+			if(Interests[0] != "" && Interests != null){
 				for(String interest : Interests){
 					String insertInterests = "INSERT INTO tweet_has_interests(Tweet_Id, Interest) VALUES("+ Id + ", '" + interest + "');";
 					/* DEBUG
