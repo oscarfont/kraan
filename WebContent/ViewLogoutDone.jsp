@@ -6,6 +6,6 @@ $(document).ready(function() {
 	    $.ajaxSetup({ cache: false }); //Avoids Internet Explorer caching!
         $('#navigation').load('MenuController');
         $('#content').load('LoginController');
-        $('#logout-msg').append("<small style='color:LightCoral'>Logout done!</small>");
+        $('#logout-msg').update("<small style='color:LightCoral'>Logout done!</small>");
 });
 </script>
