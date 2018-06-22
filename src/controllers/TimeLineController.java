@@ -30,16 +30,9 @@ public class TimeLineController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
+		RequestDispatcher dispatcher = request.getRequestDispatcher("ViewTimeLine.jsp");
+		dispatcher.forward(request, response);	
 		
-		if (session.getAttribute("user") != null) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewTimeLineLogged.jsp");
-			dispatcher.forward(request, response);	
-		}else{
-			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewTimeLineNotLogged.jsp");
-			dispatcher.forward(request, response);	
-		}
-	
 	}
 
 	/**
