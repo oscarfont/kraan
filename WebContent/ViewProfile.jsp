@@ -16,11 +16,13 @@ $(document).ready(function() {
 BeanLogin userLogin = (BeanLogin) session.getAttribute("user");
 
 String admin = null;
-String yes = "Yes";
+String owner = "Yes";
 String sessionUsername = userLogin.getUser();
-String requestUsername = user.getName();
-String isUser = (String) request.getAttribute("own_profile");
-System.out.println("holi" + isUser);
+String requestUsername = user.getUser();
+String isOwner = (String) request.getAttribute("own_profile");
+isOwner.replaceAll("\"", "");
+System.out.println("holi" + isOwner);
+System.out.println("owner vale:" + owner);
 
 if(session.getAttribute("admin") != null){
 	admin = session.getAttribute("admin").toString(); 
@@ -57,11 +59,10 @@ if(session.getAttribute("admin") != null){
 	         </p>
 	         </p>
 	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i> April 1, 1988</p>
-	         <c:if test="${isUser.equals(yes)}">
-	            <hr>
-				<div class="center"><button class="button theme-d5 margin-bottom" style="width:50%">Follow</button></div>
-			 </c:if>	
-	        </div>
+			 <c:if test="${!isOwner.equals(owner)}">
+				<jsp:include page="ViewFollow.jsp" />
+			 </c:if>
+			</div>
 	      </div>
 	      <br>
 	
@@ -135,7 +136,6 @@ if(session.getAttribute("admin") != null){
 	    
 	    <!-- Middle Column -->
 	    <div class="col m7">
-	      
 	      <div class="container card white round margin"><br>
 	        <img src="images/img_avatar2.png" alt="Avatar" class="left circle margin-right" style="width:60px">
 	        <span class="right opacity">1 min</span>
@@ -263,14 +263,11 @@ function openNav() {
 };
 </script>
 
-<c:if test="${sessionUsername == requestUsername}">
+<c:if test="${sessionUsername.equals(requestUsername)}">
 	<script>
 		//test admin
 		$(document).ready(function() {
 			$('#welcome').load('AdminController');
 		});
 	</script>
-</c:if>	
-
-	
-
+</c:if>

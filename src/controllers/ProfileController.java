@@ -39,7 +39,6 @@ public class ProfileController extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("Profile Controller");
 		String owner = (String) request.getParameter("own_profile");
-		System.out.println(owner);
 		BeanUser user = new BeanUser();
 		String username = null;
 		
@@ -48,6 +47,9 @@ public class ProfileController extends HttpServlet {
 			BeanUtils.populate(user, request.getParameterMap());
 			HttpSession session = request.getSession();
 			BeanLogin userlogin = (BeanLogin) session.getAttribute("user");
+			
+			if(owner == null) return;
+			
 			if(owner.equals("Yes")){
 				username = userlogin.getUser();
 			}else{
@@ -58,6 +60,7 @@ public class ProfileController extends HttpServlet {
 			//System.out.println(user.getJob());
 			//System.out.println(user.getLocation());
 			request.setAttribute("user", user);
+			System.out.println("Soy" + owner);
 			request.setAttribute("own_profile", owner);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewProfile.jsp");
