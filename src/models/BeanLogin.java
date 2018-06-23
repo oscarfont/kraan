@@ -9,8 +9,8 @@ import org.apache.commons.beanutils.BeanUtils;
 
 public class BeanLogin {
 
-	private String user = "";
-	private String password = "";
+	private String user = "Oriolet";
+	private String password = "Oriol1234";
 	private int error = 0;
 	
 	public String getUser(){ return user; }

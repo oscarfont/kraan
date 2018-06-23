@@ -39,18 +39,10 @@ if(session.getAttribute("admin") != null){
 	         <p class="center"><img src="images/img_avatar2.png" class="circle" style="height:106px;width:106px" alt="Avatar"></p>
 	         <hr>
 	         <p><i class="fa fa-pencil fa-fw margin-right text-theme"></i>
-				<%if(user.getJob().equals("null")){ %>
-					esnull.
-				<%} else{ %>
 					${user.job }
-				<%} %>
 	         </p>
 	         <p><i class="fa fa-home fa-fw margin-right text-theme"></i>
-				<%if(user.getLocation().equals("null")){ %>
-					esnull.
-				<%} else{ %>
-					${user.location}
-				<%} %>
+					${user.location }
 	         </p>
 	         </p>
 	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i> April 1, 1988</p>
