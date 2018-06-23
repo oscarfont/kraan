@@ -39,10 +39,20 @@ if(session.getAttribute("admin") != null){
 	         <p class="center"><img src="images/img_avatar2.png" class="circle" style="height:106px;width:106px" alt="Avatar"></p>
 	         <hr>
 	         <p><i class="fa fa-pencil fa-fw margin-right text-theme"></i>
+				<%if(user.getJob().equals("")){ %>
+					Afegeix la feina
+					<i class="fa fa-plus-square fa-fw text-theme" id="afegeix-job"></i>
+				<%} else{ %>
 					${user.job }
+				<%} %>
 	         </p>
 	         <p><i class="fa fa-home fa-fw margin-right text-theme"></i>
-					${user.location }
+				<%if(user.getLocation().equals("")){ %>
+						Afegeix el lloc 
+						<i class="fa fa-plus-square fa-fw text-theme" id="afegeix-location"></i>
+				<%} else{ %>
+					${user.location}
+				<%} %>
 	         </p>
 	         </p>
 	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i> April 1, 1988</p>
@@ -247,6 +257,17 @@ function openNav() {
     }
 };
 </script>
+
+<script>
+//Enter Kraan as anonymous
+$('#add-job').click(function() {
+	$("#log-body").hide();
+	$("#web-body").show();
+	document.body.className = "theme-l5";
+	$('#main-page').load('TimeLineController');
+});
+</script>
+
 
 <c:if test="${sessionUsername == requestUsername}">
 	<script>
