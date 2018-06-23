@@ -20,10 +20,6 @@
 $('#search-result').click(function(){
 	$('button').click(function(){
 	   var uid = $(this).attr('id');
-	   //alert(uid);
-	   //AQUI HEMOS GUARDADO LA ID DEL BOTON CLICADO,
-	   //QUE ES EL NOMBRE DEL USUARIO
-	   //CAMBIAR ESTO DE ABAJO PARA QUE LINKE CON EL PERFIL
 	   $('#main-page').load('ProfileController');
 	});
 });

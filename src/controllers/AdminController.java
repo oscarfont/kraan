@@ -25,7 +25,6 @@ public class AdminController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HttpSession session = request.getSession();
-		
 		BeanLogin user = (BeanLogin) session.getAttribute("user");
 		if(user == null) return;
 		

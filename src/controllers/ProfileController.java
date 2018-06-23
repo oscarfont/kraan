@@ -49,6 +49,7 @@ public class ProfileController extends HttpServlet {
 			BeanLogin userlogin = (BeanLogin) session.getAttribute("user");
 			
 			if(owner == null) return;
+			if(userlogin == null) return;
 			
 			if(owner.equals("Yes")){
 				username = userlogin.getUser();

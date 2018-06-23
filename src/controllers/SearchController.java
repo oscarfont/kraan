@@ -23,7 +23,6 @@ public class SearchController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		String searchUser = (String) request.getParameter("content");
-		
 		if (searchUser == null) return;
 			
 		System.out.println("SearchController, loading: " + searchUser);

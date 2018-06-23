@@ -5,6 +5,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	    $.ajaxSetup({ cache: false }); // Avoids Internet Explorer caching!
+	    
 	    document.getElementById('log-body').style.display = 'none';
 	    $('#logout-button').load('MenuController');
 	    document.getElementById('web-body').style.display = 'inline';
@@ -57,7 +58,6 @@ if(session.getAttribute("admin") != null){
 					${user.location}
 				<%} %>
 	         </p>
-	         </p>
 	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i> April 1, 1988</p>
 			 <c:if test="${!isOwner.equals(owner)}">
 				<jsp:include page="ViewFollow.jsp" />
@@ -66,41 +66,13 @@ if(session.getAttribute("admin") != null){
 	      </div>
 	      <br>
 	
-	      <!-- Accordion -->
+		  <!-- Accordion -->
 	      <div class="card round">
 	        <div class="white">
-	          <button onclick="myFunction('Demo1')" class="button block theme-l1 left-align"><i class="fa fa-circle-o-notch fa-fw margin-right"></i> My Groups</button>
-	          <div id="Demo1" class="hide container">
-	            <p>Some text..</p>
-	          </div>
-	          <button onclick="myFunction('Demo2')" class="button block theme-l1 left-align"><i class="fa fa-calendar-check-o fa-fw margin-right"></i> My Events</button>
-	          <div id="Demo2" class="hide container">
-	            <p>Some other text..</p>
-	          </div>
-	          <button onclick="myFunction('Demo3')" class="button block theme-l1 left-align"><i class="fa fa-users fa-fw margin-right"></i> My Photos</button>
-	          <div id="Demo3" class="hide container">
-	         <div class="row-padding">
-	         <br>
-	           <div class="half">
-	             <img src="images/img_avatar2.png" style="width:100%" class="margin-bottom">
-	           </div>
-	           <div class="half">
-	             <img src="images/img_avatar2.png" style="width:100%" class="margin-bottom">
-	           </div>
-	           <div class="half">
-	             <img src="images/img_avatar2.png" style="width:100%" class="margin-bottom">
-	           </div>
-	           <div class="half">
-	             <img src="images/img_avatar2.png" style="width:100%" class="margin-bottom">
-	           </div>
-	           <div class="half">
-	             <img src="images/img_avatar2.png" style="width:100%" class="margin-bottom">
-	           </div>
-	           <div class="half">
-	             <img src="images/img_avatar2.png" style="width:100%" class="margin-bottom">
-	           </div>
-	         </div>
-	          </div>
+	          <button id="showFollowingButton" onclick="dropdown('showFollowing')" class="button block theme-l1 left-align"><i class="fa fa-star fa-fw margin-right"></i> Following</button>
+	          <div id="showFollowing" class="hide container"></div>
+	          <button id="showFollowersButton" onclick="dropdown('showFollowers')" class="button block theme-l1 left-align"><i class="fa fa-users fa-fw margin-right"></i> Followers</button>
+	          <div id="showFollowers" class="hide container"></div>
 	        </div>    
 	      </div>
 	      <br>
@@ -240,7 +212,7 @@ if(session.getAttribute("admin") != null){
 
 <script>
 // Accordion
-function myFunction(id) {
+function dropdown(id) {
     var x = document.getElementById(id);
     if (x.className.indexOf("show") == -1) {
         x.className += " show";
@@ -251,6 +223,14 @@ function myFunction(id) {
         x.previousElementSibling.className.replace(" theme-d1", "");
     }
 };
+
+//TESTUS Y DESTUUUUUUS ----------
+$('#showFollowingButton').click(function(){
+	$('#showFollowing').load('GetFollowController', {option:'following'});
+});
+$('#showFollowersButton').click(function(){
+	$('#showFollowers').load('GetFollowController', {option:'followers'});
+});
 
 // Used to toggle the menu on smaller screens when clicking on the menu button
 function openNav() {
@@ -271,3 +251,4 @@ function openNav() {
 		});
 	</script>
 </c:if>
+

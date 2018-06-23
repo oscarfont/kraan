@@ -3,7 +3,7 @@
     
 <% 
 	String requestUsername = (String) request.getAttribute("own_profile");
-	boolean isfollowing = false;
+	boolean isfollowing = true;
 	if(request.getAttribute("following") != null){
 		isfollowing = (boolean) request.getAttribute("following");
 	}
@@ -22,17 +22,16 @@ function follow() {
 	$('#follow-div').load('FollowController', {following:tofollow});
 }
 
-var follows = "<%=isfollowing%>";
-
-$('#follow-button').click(function() {
+$(document).ready(function() {
 	
 	console.log(follows);
+	
+	var follows = "<%=isfollowing%>";
 	
 	if(follows == true){
 		$('#follow-button').val("Unfollow");
 	}else{
 		$('#follow-button').val("Follow");
-		follows = true;
 	}
 });
 
