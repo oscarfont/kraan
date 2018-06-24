@@ -36,6 +36,21 @@ $(document).ready(function(){
         <label> Surname </label>
         <input type="text" name="surname" class="input-text" id="surname" value="<%=user.getSurname() %>" required maxlength="30">
     </p>
+    
+    <p>
+        <label> Job </label>
+        <input type="text" name="job" class="input-text" id="job" value="<%=user.getJob() %>" maxlength="30">
+    </p>
+    
+    <p>
+        <label> Location </label>
+        <input type="text" name="location" class="input-text" id="location" value="<%=user.getLocation() %>" maxlength="30">
+    </p>
+    
+     <p>
+        <label> Birth Date </label>
+        <input type="date" name="birthdate" id="birthdate" value="<%=user.getBirthdate() %>">
+    </p>
 	
 	<p>
       <label> Gender </label><br>
