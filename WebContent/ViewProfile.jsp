@@ -41,28 +41,27 @@ if(session.getAttribute("admin") != null){
 	         <p><i class="fa fa-pencil fa-fw margin-right text-theme"></i>
 				<%if(user.getJob().equals("")){ %>
 					<%if(user.getUser().equals(userLogin.getUser())){ %>
-						Afegeix la feina
-						<i class="fa fa-plus-square fa-fw text-theme" id="afegeix-job"></i>
-					<%}else{ %>
+						Add a job description
+						<a id="afegeix-job" href="#" class="bar-item button hide-small padding-large hover-white" title="Add a job description"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+					<%} else{ %>
 						No Job description
 					<%} %>
 						
 				<%} else{ %>
 					${user.job }
 				<%} %>
-	         </p>
+
 	         <p><i class="fa fa-home fa-fw margin-right text-theme"></i>
 				<%if(user.getLocation().equals("")){ %>
 					<%if(user.getUser().equals(userLogin.getUser())){ %>
-						Afegeix el lloc 
-						<i class="fa fa-plus-square fa-fw text-theme" id="afegeix-location"></i>
+						Add a location description
+						<a id="afegeix-location" href="#" class="bar-item button hide-small padding-large hover-white" title="Add a location description"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
 					<%}else{ %>
 						No Location description
 					<%} %>
 				<%} else{ %>
 					${user.location}
 				<%} %>
-	         </p>
 	         </p>
 	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i> April 1, 1988</p>
 	        </div>
@@ -266,6 +265,20 @@ function openNav() {
     }
 };
 </script>
+
+<script>
+$('#afegeix-job').click(function() {
+	var sessionUsername = ${userLogin.name};
+	console.log("hola");
+	console.log(sessionUsername);
+	$('#main-page').load('ModifyProfileController', {username:sessionUsername});
+})
+$('#afegeix-location').click(function(){
+	var sessionUsername = ${userLogin.name};
+	$('#main-page').load('ModifyProfileController', {username:sessionUsername});
+})
+</script>
+
 
 <script>
 //Enter Kraan as anonymous

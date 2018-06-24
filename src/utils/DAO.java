@@ -206,5 +206,13 @@ public class DAO extends HttpServlet {
 		}
 		
 	}
+	public void getUserInfo(BeanUser user, String username) {
+		
+	}
+	
+	public void modifyUser(BeanUser user,  HttpServletRequest request, HttpServletResponse response) {
+		
+		
+	}
 
 }
