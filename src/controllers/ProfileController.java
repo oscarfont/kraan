@@ -58,20 +58,13 @@ public class ProfileController extends HttpServlet {
 			}
 			DAO dao = new DAO();
 			dao.profile(user, username);
-			//System.out.println(user.getJob());
-			//System.out.println(user.getLocation());
+
 			request.setAttribute("user", user);
-			System.out.println("Soy" + owner);
 			request.setAttribute("own_profile", owner);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewProfile.jsp");
 			dispatcher.forward(request, response);
 			//response.getWriter().append("Served at: ").append(request.getContextPath());
-			
-			
-			//System.out.println(user.getJob());
-			
-			
 			
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO Auto-generated catch block

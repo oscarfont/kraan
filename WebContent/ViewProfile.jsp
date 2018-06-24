@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="models.BeanUser" import="models.BeanLogin" session="true"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 
+	import="models.BeanUser" import="models.BeanLogin" import="utils.DAO" session="true"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
   
 <script type="text/javascript">
@@ -22,13 +22,17 @@ String sessionUsername = userLogin.getUser();
 String requestUsername = user.getUser();
 String isOwner = (String) request.getAttribute("own_profile");
 isOwner.replaceAll("\"", "");
-System.out.println("holi" + isOwner);
-System.out.println("owner vale:" + owner);
+System.out.println("esto es el owner? " + isOwner);
 
 if(session.getAttribute("admin") != null){
 	admin = session.getAttribute("admin").toString(); 
 }
 %>
+
+<script>
+var tofollow = "<%=isOwner%>";
+$('#follow-div').load('FollowController', {following:tofollow,checking:"Yes"});
+</script>
 
 <!-- Page Container -->
 <div id="login-content">
@@ -45,23 +49,24 @@ if(session.getAttribute("admin") != null){
 	         <p class="center"><img src="images/img_avatar2.png" class="circle" style="height:106px;width:106px" alt="Avatar"></p>
 	         <hr>
 	         <p><i class="fa fa-pencil fa-fw margin-right text-theme"></i>
-				<%if(user.getJob().equals("null")){ %>
+				<% if(user.getJob().equals("null")){ %>
 					esnull.
-				<%} else{ %>
-					${user.job }
-				<%} %>
+				<% } else{ %>
+					${user.job}
+				<% } %>
 	         </p>
 	         <p><i class="fa fa-home fa-fw margin-right text-theme"></i>
-				<%if(user.getLocation().equals("null")){ %>
+				<% if(user.getLocation().equals("null")){ %>
 					esnull.
-				<%} else{ %>
+				<% } else{ %>
 					${user.location}
-				<%} %>
+				<% } %>
 	         </p>
 	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i> April 1, 1988</p>
-			 <c:if test="${!isOwner.equals(owner)}">
-				<jsp:include page="ViewFollow.jsp" />
-			 </c:if>
+			 <% if(!isOwner.equals("Yes")){ %>
+				<div id="follow-div" class="center">
+				</div>
+			 <% } %>
 			</div>
 	      </div>
 	      <br>
@@ -252,3 +257,9 @@ function openNav() {
 	</script>
 </c:if>
 
+<script>
+function follow() {
+	var tofollow = "<%=isOwner%>";
+	$('#follow-div').load('FollowController', {following:tofollow});
+}
+</script>

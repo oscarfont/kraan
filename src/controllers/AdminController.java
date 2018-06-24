@@ -34,7 +34,7 @@ public class AdminController extends HttpServlet {
 		try {
 			dao = new DAO();
 			String query = "SELECT U.IsAdmin FROM Users U WHERE U.Username = '" + user.getUser() + "';";
-			System.out.println(query);
+
 			ResultSet checkQuery = dao.executeSQL(query);
 			boolean queryExists = checkQuery.first();
 	
@@ -42,7 +42,6 @@ public class AdminController extends HttpServlet {
 			{			
 				if(checkQuery.getInt("U.IsAdmin") == 1) {
 					session.setAttribute("admin", "admin");
-					
 					
 					RequestDispatcher dispatcher = request.getRequestDispatcher("ViewAdmin.jsp");
 					dispatcher.forward(request, response);

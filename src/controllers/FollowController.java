@@ -27,35 +27,50 @@ public class FollowController extends HttpServlet {
 		HttpSession session = request.getSession();
 		BeanLogin user = (BeanLogin) session.getAttribute("user");
 		String tofollow = (String) request.getParameter("following");
-		System.out.println(tofollow);
+		String checking = (String) request.getParameter("checking");
 		
 		try {
 			
 			DAO dao = new DAO();
 			
-			String checkFollow = "SELECT * FROM users_follows_users WHERE User='" + user.getUser() + "' AND Following='" + tofollow + "';" ;
-			ResultSet rs = dao.executeSQL(checkFollow);
-			boolean FollowExists = rs.first();
-			
-			if(FollowExists){
+			//check the following state at loading the page
+			if(checking != null){
+				String checkFollow = "SELECT * FROM users_follows_users WHERE User='" + user.getUser() + "' AND Following='" + tofollow + "';" ;
+				System.out.println(checkFollow);
+				ResultSet rs = dao.executeSQL(checkFollow);
+				boolean FollowExists = rs.first();
 				
-				String Followquery = "DELETE FROM users_follows_users WHERE User='" + user.getUser() + "' AND Following='" + tofollow + "';";
-				System.out.println(Followquery);
-				dao.UpdateSQL(Followquery);
-				
-			}else{
-				
-				String Followquery = "INSERT INTO users_follows_users(User,Following) VALUES('" + user.getUser() + "', '" + tofollow + "');";
-				System.out.println(Followquery);
-				dao.UpdateSQL(Followquery);
-				
-			}
+				if(FollowExists){
+					RequestDispatcher dispatcher = request.getRequestDispatcher("ViewUnfollow.jsp");
+					dispatcher.forward(request, response);
+				} else {
+					RequestDispatcher dispatcher = request.getRequestDispatcher("ViewFollow.jsp");
+					dispatcher.forward(request, response);
+				}
 			
-			request.setAttribute("following", FollowExists);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewFollow.jsp");
-			dispatcher.forward(request, response);
-			
-			
+			//do the follow or unfollow
+			} else {
+				String checkFollow = "SELECT * FROM users_follows_users WHERE User='" + user.getUser() + "' AND Following='" + tofollow + "';" ;
+				System.out.println(checkFollow);
+				ResultSet rs = dao.executeSQL(checkFollow);
+				boolean FollowExists = rs.first();
+				
+				if(FollowExists){
+					String Followquery = "DELETE FROM users_follows_users WHERE User='" + user.getUser() + "' AND Following='" + tofollow + "';";
+					System.out.println(Followquery);
+					dao.UpdateSQL(Followquery);
+					
+					RequestDispatcher dispatcher = request.getRequestDispatcher("ViewFollow.jsp");
+					dispatcher.forward(request, response);
+				}else{
+					String Followquery = "INSERT INTO users_follows_users(User,Following) VALUES('" + user.getUser() + "', '" + tofollow + "');";
+					System.out.println(Followquery);
+					dao.UpdateSQL(Followquery);
+					
+					RequestDispatcher dispatcher = request.getRequestDispatcher("ViewUnfollow.jsp");
+					dispatcher.forward(request, response);
+				}
+			}	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		

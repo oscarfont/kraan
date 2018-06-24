@@ -55,7 +55,7 @@ public class GetFollowController extends HttpServlet {
 		try {
 			DAO dao = new DAO();
 
-			//choose between following and followers users
+			/*//choose between following and followers users
 			String chooseOption = null;
 			if(option.equals("following")){
 				chooseOption = "Following";
@@ -64,7 +64,10 @@ public class GetFollowController extends HttpServlet {
 			else if(option.equals("followers")){
 				chooseOption = "User";
 				//request.setAttribute("option", "followers");
-			}
+			}*/
+			
+			String chooseOption = null;
+			chooseOption = "User";
 			
 			//get the number of occurrences
 			String query1 = "SELECT COUNT(" + chooseOption + ") AS num FROM users_follows_users WHERE User = '" + user.getUser() + "';";
