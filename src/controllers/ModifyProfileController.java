@@ -38,16 +38,16 @@ public class ModifyProfileController extends HttpServlet {
 		System.out.println("Modify profile Controller");
 		
 		   try {
-			   String username = (String) request.getParameter("username");
+			   //String username = (String) request.getParameter("username");
 			   //String toLoad = (String) request.getParameter("toLoad");
-			   System.out.println(username);
+			   //System.out.println(username);
 			   BeanUser user = new BeanUser();
 			   DAO dao = new DAO();
 			   BeanUtils.populate(user, request.getParameterMap());
 			   
 			
 			   if (user.isComplete()) {
-				   
+				  
 				   dao.modifyUser(user, request, response);
 				   //System.out.println(user.getError()[3]);
 				   //System.out.println(user.getError()[4]);

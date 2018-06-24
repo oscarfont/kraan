@@ -63,7 +63,38 @@ if(session.getAttribute("admin") != null){
 					${user.location}
 				<%} %>
 	         </p>
-	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i> April 1, 1988</p>
+	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i>
+	         	<%if(user.getBirthdate().equals("")){ %>
+					<%if(user.getUser().equals(userLogin.getUser())){ %>
+						Add your birth date
+						<a id="afegeix-birthdate" href="#" class="bar-item button hide-small padding-large hover-white" title="Add your birth date"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+					<%}else{ %>
+						No Birth Date information
+					<%} %>
+				<%} else{ %>
+					${user.birthdate}
+				<%} %>
+				</p>
+	        </div>
+	      </div>
+	      <br>
+	      
+	     <!-- User Description --> 
+	      <div class="card round white hide-small">
+	        <div class="container">
+	          <p><b>Description</b></p>
+	          <p>
+				<%if(user.getDescription().equals("")){ %>
+					<%if(user.getUser().equals(userLogin.getUser())){ %>
+						Want to add a description?
+						<a id="afegeix-description" href="#" class="bar-item button hide-small padding-large hover-white" title="Add User description"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+					<%}else{ %>
+						No description for this user
+					<%} %>
+				<%} else{ %>
+					${user.description}
+				<%} %>
+	          </p>
 	        </div>
 	      </div>
 	      <br>
@@ -268,14 +299,13 @@ function openNav() {
 
 <script>
 $('#afegeix-job').click(function() {
-	var sessionUsername = ${userLogin.name};
-	console.log("hola");
-	console.log(sessionUsername);
-	$('#main-page').load('ModifyProfileController', {username:sessionUsername});
+	$('#main-page').load('ModifyProfileController');
 })
 $('#afegeix-location').click(function(){
-	var sessionUsername = ${userLogin.name};
-	$('#main-page').load('ModifyProfileController', {username:sessionUsername});
+	$('#main-page').load('ModifyProfileController');
+})
+$('#afegeix-birthdate').click(function(){
+	$('#main-page').load('ModifyProfileController');
 })
 </script>
 

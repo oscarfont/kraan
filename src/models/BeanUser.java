@@ -17,6 +17,7 @@ public class BeanUser implements Serializable  {
 	private String description = "";
 	private String job = "";
 	private String location = "";
+	private String birthdate = "";
 	private String[] interests;
 	
 	
@@ -34,6 +35,7 @@ public class BeanUser implements Serializable  {
 	public String getDescription() { return description; }
 	public String getJob() { return job; }
 	public String getLocation() { return location; }
+	public String getBirthdate() { return birthdate; }
 	public String[] getInterests() { return interests; }
 	
 	
@@ -52,6 +54,7 @@ public class BeanUser implements Serializable  {
 	public void setDescription(String description) { System.out.println("Filling description field"); this.description = description; }
 	public void setJob(String job) { System.out.println("Filing job field"); this.job = job;}
 	public void setLocation(String location) {System.out.println("Filing location field"); this.location = location; }
+	public void setBirthdate(String birthdate) {System.out.println("Filing birthdate field"); this.birthdate = birthdate; }
 	public void setInterests(String[] interests) { System.out.println("Filling interests field"); this.interests = interests; }
 	public void setError(int[] newError){ this.error = newError; }
 	

@@ -175,6 +175,11 @@ public class DAO extends HttpServlet {
 		System.out.println(nameQuery);
 		name.first();
 		user.setName(name.getString(1));
+		String descriptionQuery ="SELECT Description FROM Descriptions WHERE Username ='" + username + "';";
+		ResultSet description = executeSQL(descriptionQuery);
+		if(description.first()) {
+			user.setDescription(description.getString(1));
+		}
 		String jobQuery = "SELECT Job FROM Users WHERE Username = '" + username + "';";
 		ResultSet job = executeSQL(jobQuery);
 		//Aqui tractar el tema de que no hi hagi resultset
@@ -186,7 +191,7 @@ public class DAO extends HttpServlet {
 			}
 			
 		}else{
-			user.setJob("nada");
+			user.setJob("");
 		}
 		String locationQuery = "SELECT Location FROM Users WHERE Username = '" + username + "';";
 		System.out.println(locationQuery);
@@ -202,8 +207,23 @@ public class DAO extends HttpServlet {
 			}
 			
 		}else{
-			user.setLocation("nada");
+			user.setLocation("");
 		}
+		String birthQuery = "SELECT Birthdate FROM Users WHERE Username = '" + username + "';";
+		System.out.println(birthQuery);
+		ResultSet birth = executeSQL(birthQuery);
+
+		if(birth.first()){
+			
+			if(birth.getString(1) != null){
+				String result = birth.getString(1);
+				user.setBirthdate(result);
+				System.out.println(birth.getString(1));
+			}
+			
+		}else{
+			user.setBirthdate("");
+		};
 		
 	}
 	public void getUserInfo(BeanUser user, String username) {
