@@ -10,9 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import models.BeanLogin;
 import models.BeanUser;
 import utils.DAO;
 
@@ -23,75 +21,97 @@ public class GetFollowController extends HttpServlet {
     public GetFollowController() {
         super();
     }
-    
-    private void fillBeanFollowArray(BeanUser[] users, ResultSet rs, String col) {
-    	
-		try {
-
-			int current = 0;
-			
-	    	while (rs.next()) 
-	    	{
-	    		BeanUser user = new BeanUser();
-	    		user.setUser(rs.getString(col));
-	    		users[current]= user;
-	    		current++;
-	    	}
-	    	
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		System.out.println("Get Follow Controller");
 		
-		HttpSession session = request.getSession();
-		BeanLogin user = (BeanLogin) session.getAttribute("user");
 		String option = (String) request.getParameter("option");
-		if(user == null) return;
+		String username = (String) request.getParameter("currentUser");
+		if(username == null || option == null) return;
 
 		try {
 			DAO dao = new DAO();
 
-			/*//choose between following and followers users
-			String chooseOption = null;
-			if(option.equals("following")){
-				chooseOption = "Following";
-				//request.setAttribute("option", "following");
-			}
-			else if(option.equals("followers")){
-				chooseOption = "User";
-				//request.setAttribute("option", "followers");
-			}*/
-			
-			String chooseOption = null;
-			chooseOption = "User";
-			
-			//get the number of occurrences
-			String query1 = "SELECT COUNT(" + chooseOption + ") AS num FROM users_follows_users WHERE User = '" + user.getUser() + "';";
-			System.out.println(query1);
-			ResultSet rs1 = dao.executeSQL(query1);
-			if(rs1.first())
+			if(option.equals("following"))
 			{
-				int numUsers = rs1.getInt("num");
-			
-				//get the result
-				String query2 = "SELECT " + chooseOption + " FROM users_follows_users WHERE User = '" + user.getUser() + "';";
-				System.out.println(query2);
-				ResultSet rs2 = dao.executeSQL(query2);
-				if(rs2.first())
+				String query1 = "SELECT COUNT(Following) AS num FROM users_follows_users WHERE User = '" + username + "';";
+				System.out.println("---------------------------------------");
+				System.out.println(query1);
+				ResultSet rs1 = dao.executeSQL(query1);
+				if(rs1.first())
 				{
-					//fill the array
-					BeanUser[] users = new BeanUser[numUsers];
-					fillBeanFollowArray(users, rs2, chooseOption);
+					int numUsers = rs1.getInt("num");
+					System.out.println("num total: " + numUsers);
 				
-					//pass users to request
-					request.setAttribute("users", users);
+					//get the result
+					String query2 = "SELECT Following FROM users_follows_users WHERE User = '" + username + "';";
+					System.out.println(query2);
+					ResultSet rs2 = dao.executeSQL(query2);
+					if(rs2.first())
+					{
+						//fill the array
+						BeanUser[] followings = new BeanUser[numUsers];
+						int current = 0;
+						rs2.beforeFirst();
+						
+				    	while (rs2.next()) {
+				    		BeanUser user = new BeanUser();
+				    		user.setUser(rs2.getString("Following"));
+				    		System.out.println(rs2.getString("Following"));
+				    		followings[current] = user;
+				    		current++;
+				    	}
+					
+						//pass users to request
+						request.setAttribute("followings", followings);
+						
+						System.out.println("---------------------------------------");
+					
+						RequestDispatcher dispatcher = request.getRequestDispatcher("ViewFollowings.jsp");
+						dispatcher.forward(request, response);
+					}
+				}
+			}
+			
+			else if(option.equals("followers"))
+			{
+				String query1 = "SELECT COUNT(User) AS num FROM users_follows_users WHERE Following = '" + username + "';";
+				System.out.println("---------------------------------------");
+				System.out.println(query1);
+				ResultSet rs1 = dao.executeSQL(query1);
+				if(rs1.first())
+				{
+					int numUsers = rs1.getInt("num");
+					System.out.println("num total: " + numUsers);
 				
-					RequestDispatcher dispatcher = request.getRequestDispatcher("ViewFollowers.jsp");
-					dispatcher.forward(request, response);
+					//get the result
+					String query2 = "SELECT User FROM users_follows_users WHERE Following = '" + username + "';";
+					System.out.println(query2);
+					ResultSet rs2 = dao.executeSQL(query2);
+					if(rs2.first())
+					{
+						//fill the array
+						BeanUser[] followers = new BeanUser[numUsers];
+						int current = 0;
+						rs2.beforeFirst();
+						
+				    	while (rs2.next()) {
+				    		BeanUser user = new BeanUser();
+				    		user.setUser(rs2.getString("User"));
+				    		System.out.println(rs2.getString("User"));
+				    		followers[current] = user;
+				    		current++;
+				    	}
+					
+						//pass users to request
+						request.setAttribute("followers", followers);
+						
+						System.out.println("---------------------------------------");
+					
+						RequestDispatcher dispatcher = request.getRequestDispatcher("ViewFollowers.jsp");
+						dispatcher.forward(request, response);
+					}
 				}
 			}
 			

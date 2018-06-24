@@ -21,8 +21,6 @@ String owner = "Yes";
 String sessionUsername = userLogin.getUser();
 String requestUsername = user.getUser();
 String isOwner = (String) request.getAttribute("own_profile");
-isOwner.replaceAll("\"", "");
-System.out.println("esto es el owner? " + isOwner);
 
 if(session.getAttribute("admin") != null){
 	admin = session.getAttribute("admin").toString(); 
@@ -32,6 +30,9 @@ if(session.getAttribute("admin") != null){
 <script>
 var tofollow = "<%=isOwner%>";
 $('#follow-div').load('FollowController', {following:tofollow,checking:"Yes"});
+
+$('#showFollowing').load('GetFollowController', {currentUser:tofollow,option:'following'});
+$('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'followers'});
 </script>
 
 <!-- Page Container -->
@@ -70,6 +71,9 @@ $('#follow-div').load('FollowController', {following:tofollow,checking:"Yes"});
 			</div>
 	      </div>
 	      <br>
+	
+	<div id="showFollowing1" class="card round"></div>
+	<div id="showFollowers1" class="card round"></div>
 	
 		  <!-- Accordion -->
 	      <div class="card round">
@@ -228,14 +232,6 @@ function dropdown(id) {
         x.previousElementSibling.className.replace(" theme-d1", "");
     }
 };
-
-//TESTUS Y DESTUUUUUUS ----------
-$('#showFollowingButton').click(function(){
-	$('#showFollowing').load('GetFollowController', {option:'following'});
-});
-$('#showFollowersButton').click(function(){
-	$('#showFollowers').load('GetFollowController', {option:'followers'});
-});
 
 // Used to toggle the menu on smaller screens when clicking on the menu button
 function openNav() {
