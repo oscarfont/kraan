@@ -8,7 +8,8 @@ $(document).ready(function() {
 	    document.getElementById('log-body').style.display = 'none';
 	    document.getElementById('web-body').style.display = 'inline';
 	    document.body.className = "theme-l5";
-	    $('#tweets-container').load("GetTweetsController");
+	    var tweetstoDisplay = "All";
+	    $('#tweets-container').load("GetTweetsController", {Display:tweetstoDisplay} );
 });
 </script>
 

@@ -9,6 +9,8 @@ $(document).ready(function() {
 	    $('#logout-button').load('MenuController');
 	    document.getElementById('web-body').style.display = 'inline';
 	    document.body.className = "theme-l5";
+	    var tweetstoDisplay = "Oriolet";
+	    $('#tweets-container').load("GetTweetsController", {Display:tweetstoDisplay});
 });
 </script>
 
@@ -170,48 +172,7 @@ if(session.getAttribute("admin") != null){
 	    <!-- Middle Column -->
 	    <div class="col m7">
 	      
-	      <div class="container card white round margin"><br>
-	        <img src="images/img_avatar2.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-	        <span class="right opacity">1 min</span>
-	        <h4>John Doe</h4><br>
-	        <hr class="clear">
-	        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-	          <div class="row-padding" style="margin:0 -16px">
-	            <div class="half">
-	              <img src="images/img_avatar2.png" style="width:100%" alt="Northern Lights" class="margin-bottom">
-	            </div>
-	            <div class="half">
-	              <img src="images/img_avatar2.png" style="width:100%" alt="Nature" class="margin-bottom">
-	          </div>
-	        </div>
-	        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
-	        <button type="button" class="button theme-d2 margin-bottom"><i class="fa fa-thumbs-down"></i>  Dislike</button> 
-	        <button type="button" class="button theme-d3 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-	      </div>
-	      
-	      <div class="container card white round margin"><br>
-	        <img src="images/img_avatar2.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-	        <span class="right opacity">16 min</span>
-	        <h4>Jane Doe</h4><br>
-	        <hr class="clear">
-	        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-	        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
-	        <button type="button" class="button theme-d2 margin-bottom"><i class="fa fa-thumbs-down"></i>  Dislike</button> 
-	        <button type="button" class="button theme-d3 margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
-	      </div>  
-	
-	      <div class="container card white round margin"><br>
-	        <img src="images/img_avatar2.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-	        <span class="right opacity">32 min</span>
-	        <h4>Angie Jane</h4><br>
-	        <hr class="clear">
-	        <p>Have you seen this?</p>
-	        <img src="images/img_avatar2.png" style="width:100%" class="margin-bottom">
-	        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-	        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
-	        <button type="button" class="button theme-d2 margin-bottom"><i class="fa fa-thumbs-down"></i>  Dislike</button> 
-	        <button type="button" class="button theme-d3 margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
-	      </div> 
+	     <div id="tweets-container"></div>	
 	      
 	    <!-- End Middle Column -->
 	    </div>

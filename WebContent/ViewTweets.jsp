@@ -19,7 +19,8 @@
 </head>
 <body>
 
-<c:forEach items="${tweets}" var="tweet">
+<%if(request.getAttribute("display").equals("All")){ %>
+	<c:forEach items="${tweets}" var="tweet">
 	<div class="container card white round margin"><br>
      	<!-- Button to delete or edit tweet -->
      	<c:if test="${user.user == tweet.author }">
@@ -50,6 +51,11 @@
        <button type="button" class="button theme-d3 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
 	</div>
 </c:forEach>
+<%}else{ %>
+	<jsp:include page="ViewFilterTweets.jsp" />
+<%} %>
+
+
 
 </body>
 <script>
