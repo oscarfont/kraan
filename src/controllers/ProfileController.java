@@ -57,6 +57,7 @@ public class ProfileController extends HttpServlet {
 			dao.profile(user, username);
 			//System.out.println(user.getJob());
 			//System.out.println(user.getLocation());
+			user.setUser(username);
 			request.setAttribute("user", user);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewProfile.jsp");

@@ -40,16 +40,25 @@ if(session.getAttribute("admin") != null){
 	         <hr>
 	         <p><i class="fa fa-pencil fa-fw margin-right text-theme"></i>
 				<%if(user.getJob().equals("")){ %>
-					Afegeix la feina
-					<i class="fa fa-plus-square fa-fw text-theme" id="afegeix-job"></i>
+					<%if(user.getUser().equals(userLogin.getUser())){ %>
+						Afegeix la feina
+						<i class="fa fa-plus-square fa-fw text-theme" id="afegeix-job"></i>
+					<%}else{ %>
+						No Job description
+					<%} %>
+						
 				<%} else{ %>
 					${user.job }
 				<%} %>
 	         </p>
 	         <p><i class="fa fa-home fa-fw margin-right text-theme"></i>
 				<%if(user.getLocation().equals("")){ %>
+					<%if(user.getUser().equals(userLogin.getUser())){ %>
 						Afegeix el lloc 
 						<i class="fa fa-plus-square fa-fw text-theme" id="afegeix-location"></i>
+					<%}else{ %>
+						No Location description
+					<%} %>
 				<%} else{ %>
 					${user.location}
 				<%} %>
