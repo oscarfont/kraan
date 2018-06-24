@@ -10,6 +10,7 @@
 <%
 	BeanTweet[] tweets = (BeanTweet[]) request.getAttribute("tweets");
 	BeanLogin user = null;
+	String tweetsToDisplay = (String) request.getAttribute("display");
 	if(session.getAttribute("user") != null){
 		user = (BeanLogin) session.getAttribute("user"); 
 	}
@@ -19,7 +20,7 @@
 </head>
 <body>
 
-<%if(request.getAttribute("display").equals("All")){ %>
+<%if(tweetsToDisplay.equals("All")){ %>
 	<c:forEach items="${tweets}" var="tweet">
 	<div class="container card white round margin"><br>
      	<!-- Button to delete or edit tweet -->
@@ -52,7 +53,38 @@
 	</div>
 </c:forEach>
 <%}else{ %>
-	<jsp:include page="ViewFilterTweets.jsp" />
+		<c:forEach items="${tweets}" var="tweet">
+     	<!-- Button to delete or edit tweet -->
+     	<c:if test="${display == tweet.author }">
+     		<div class="container card white round margin"><br>
+	     	<div id="tweet-options">
+	     		<div class="size">
+	     			<input type="text" name="test" value="..." class="right field" readonly="readonly" />
+					<ul class="right list">
+						<li>Edit</li>
+						<li>Delete</li>
+					</ul>
+				</div>
+	     	</div>
+	     	<img src="images/img_avatar2.png" alt="Avatar" class="left circle margin-right" style="width:60px">
+	     	<h4>${tweet.author}</h4>
+	     	<span class="left opacity">${tweet.date}</span><br>
+	     	<hr class="clear">
+	     	<p>${tweet.content}</p>
+	     	<c:if test="${tweet.interests != null }">
+	     		<p>Interests:
+	     		<c:forEach items="${tweet.interests}" var="interest">
+	     			<c:out value="${interest} "></c:out>
+	     		</c:forEach>
+	     		</p>
+	     	</c:if>
+	     	<button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
+	     	 <button type="button" class="button theme-d2 margin-bottom"><i class="fa fa-thumbs-down"></i>  Retweet</button> 
+	     	 <button type="button" class="button theme-d3 margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
+	     	 </div>      		
+       </c:if> 
+
+</c:forEach>
 <%} %>
 
 

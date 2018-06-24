@@ -1,19 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="models.BeanUser" import="models.BeanLogin" session="true"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-  
-<script type="text/javascript">
-$(document).ready(function() {
-	    $.ajaxSetup({ cache: false }); // Avoids Internet Explorer caching!
-	    document.getElementById('log-body').style.display = 'none';
-	    $('#logout-button').load('MenuController');
-	    document.getElementById('web-body').style.display = 'inline';
-	    document.body.className = "theme-l5";
-	    var tweetstoDisplay = "Oriolet";
-	    $('#tweets-container').load("GetTweetsController", {Display:tweetstoDisplay});
-});
-</script>
-
+ 
 <% BeanUser user = (BeanUser) request.getAttribute("user"); 
 BeanLogin userLogin = (BeanLogin) session.getAttribute("user");
 
@@ -23,8 +11,20 @@ String requestUsername = user.getName();
 
 if(session.getAttribute("admin") != null){
 	admin = session.getAttribute("admin").toString(); 
-}
+};
 %>
+  
+<script type="text/javascript">
+$(document).ready(function() {
+	    $.ajaxSetup({ cache: false }); // Avoids Internet Explorer caching!
+	    document.getElementById('log-body').style.display = 'none';
+	    $('#logout-button').load('MenuController');
+	    document.getElementById('web-body').style.display = 'inline';
+	    document.body.className = "theme-l5";
+	    var tweetstoDisplay = "Oriolet"
+	    $('#tweets-container').load("GetTweetsController", {Display:tweetstoDisplay});
+});
+</script>
 
 <!-- Page Container -->
 <div id="login-content">
@@ -232,6 +232,9 @@ if(session.getAttribute("admin") != null){
 	  <small>Marc Canal, Óscar Font & Lucía Gasión.</small>
 	</footer>
 </div>
+
+
+
 
 <script>
 // Accordion
