@@ -115,7 +115,10 @@ $(document).ready(function() {
 	};
 	
 	$(document).ready(function() {
-		$('#logout-button').load('MenuController');
+		<%if(session.getAttribute("user") != null){%>
+			$('#logout-button').load('MenuController');
+		<%}%>
+		
 	});
 	
 	$('#filter-following').click(function() {
