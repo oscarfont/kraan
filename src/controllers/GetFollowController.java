@@ -10,7 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import models.BeanLogin;
 import models.BeanUser;
 import utils.DAO;
 
@@ -29,6 +31,13 @@ public class GetFollowController extends HttpServlet {
 		String option = (String) request.getParameter("option");
 		String username = (String) request.getParameter("currentUser");
 		if(username == null || option == null) return;
+		
+		//if the user is the owner
+		if(username.equals("Yes")){
+			HttpSession session = request.getSession();
+			BeanLogin user = (BeanLogin) session.getAttribute("user");
+			username = user.getUser();
+		}
 
 		try {
 			DAO dao = new DAO();
