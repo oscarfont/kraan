@@ -84,6 +84,7 @@ public class GetTweetsController extends HttpServlet {
 				
 				// if tweet has interests
 				ArrayList<String> interest_array = new ArrayList<String>();
+				interest_rows.beforeFirst();
 				while(interest_rows.next()){
 					String interest = interest_rows.getString("Interest");
 					interest_array.add(interest);

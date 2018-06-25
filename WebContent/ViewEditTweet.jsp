@@ -19,8 +19,12 @@
 		id = tweet.getId();
 	}
 	String interest_array = "[";
-	for(String interest : interests){
-		interest_array += "'" + interest + "',";
+	for(int i = 0; i < interests.length; i++){
+		if(i == interests.length - 1){
+			interest_array += "'" + interests[i];
+		}else{
+			interest_array += "'" + interests[i] + "',";
+		}
 	}
 	interest_array += "]";
 %>
@@ -40,6 +44,7 @@
 
 <script>
 	var tweetid = "<%=id%>";
+	var i = 0;
 	$(document).ready(function(){
 		
 		var content = "<%=tweet_content%>";
@@ -51,17 +56,13 @@
 		interests_string = interests_string.replace("[","");
 		interests_string = interests_string.replace("]","");
 		var interests = interests_string.split(",");
-		var index = interests.indexOf("");
-		interests.splice(index,1);
 		
 		console.log(interests);
 		
-		var i = 0;
-		for(var i = 0; i < interests.length; i++){
+		for(i = 0; i < interests.length; i++){
 			interests[i] = interests[i].replace("'","");
 			interests[i] = interests[i].replace("'","");
 			var interest_id = '#'+interests[i] + i;
-			console.log(interest_id);
 			$('#tweettopics-edit').append("<select id='interest_"+ i +"'><option id='religion"+ i +"' value='religion'>Religion</option><option id='sport"+ i +"' value='sport'>Sport</option><option id='music"+ i +"' value='music'>Music</option><option id='politics"+ i +"' value='politics'>Politics</option><option id='art"+ i +"' value='art'>Art</option><option id='food"+ i +"' value='food'>Food</option><option id='technology"+ i +"' value='technology'>Technology</option></select>");
 			$(interest_id).attr("selected", 'selected');
 		}
@@ -75,22 +76,22 @@
 		
 		var count = $("#tweettopics-edit > select").length;
 		
-		for(var i = 0; i < count; i++){
-			interestarray.push($('#interest_'+i).val());
+		for(var j = 0; j < count; j++){
+			interestarray.push($('#interest_'+j).val());
 		}
 		
 		console.log(interestarray);
 		
 		var interestString = interestarray.toString();
 		$('#tweet_'+tweetid).load('EditTweetController', {action:code, new_content:tweet , new_interests:interestString, tweet_id:tweetid});
+		location.reload();
 	});
 	
 	//add interests dropdown to a tweet
-	var i = 0;
 	$('#addTopic-edit').click(function(event){
 		var count = $("#tweettopics-edit > select").length;
 		if(count >= 0 && count < 8){
-			$('#tweettopics').append("<select id='interest_"+ i +"'><option value='religion'>Religion</option><option value='sport'>Sport</option><option value='music'>Music</option><option value='politics'>Politics</option><option value='art'>Art</option><option value='food'>Food</option><option value='technology'>Technology</option></select>");
+			$('#tweettopics-edit').append("<select id='interest_"+ i +"'><option value='religion'>Religion</option><option value='sport'>Sport</option><option value='music'>Music</option><option value='politics'>Politics</option><option value='art'>Art</option><option value='food'>Food</option><option value='technology'>Technology</option></select>");
 		}
 		i++;
 	});

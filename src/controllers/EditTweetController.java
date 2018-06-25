@@ -65,7 +65,6 @@ public class EditTweetController extends HttpServlet {
 			String[] intrests = {};
 			intrests = inter.toArray(intrests);
 			tweet.setInterests(intrests);
-			System.out.println(intrests);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -78,6 +77,7 @@ public class EditTweetController extends HttpServlet {
     	interestsString = interestsString.replace("[", "");
     	interestsString = interestsString.replace("]", "");
     	String[] output = interestsString.split(",");
+    	System.out.println(output.length);
     	return output;
     }
 
@@ -117,18 +117,19 @@ public class EditTweetController extends HttpServlet {
 				// Update Interests
 				if(interests.length != 0){
 					
-					String checkInterestQuery = "SELECT * FROM tweet_has_interests WHERE Tweet_id="+ tweet_id + "AND Interest='";
+					String checkInterestQuery = "SELECT * FROM tweet_has_interests WHERE Tweet_id="+ tweet_id + " AND Interest='";
+					System.out.println(checkInterestQuery);
 					String deleteInterests = "DELETE FROM tweet_has_interests WHERE Tweet_id=" + tweet_id + ";";
 					dao.UpdateSQL(deleteInterests);
 					
 					for(String interest : interests){
-						checkInterestQuery += interest + ";";
+						checkInterestQuery += interest + "';";
 						ResultSet rsl = dao.executeSQL(checkInterestQuery);
 						if(!rsl.first()){
-							String insertInterest = "INSERT INTO tweet_has_interests(Tweet_Id,Interest) VALUES("+ tweet_id + ", " + interest + ");";
+							String insertInterest = "INSERT INTO tweet_has_interests(Tweet_Id,Interest) VALUES("+ tweet_id + ", '" + interest + "');";
 							dao.UpdateSQL(insertInterest);
 						}
-						checkInterestQuery = "SELECT * FROM tweet_has_interests WHERE Tweet_id="+ tweet_id + "AND Interest='";
+						checkInterestQuery = "SELECT * FROM tweet_has_interests WHERE Tweet_id="+ tweet_id + " AND Interest='";
 					}
 				}
 
