@@ -27,8 +27,8 @@ $(document).ready(function() {
 	        <button class="dropdown-button theme-d4">Filter Timeline<i class="fa fa-caret-down"></i></button>
 	          <div class="dropdown-content">
 	          	<a href="#" onclick="returnTimeline()">Global Timeline</a> 
-	          	<a href="#" onclick="filterTimeline(0)">Following Timeline</a>
-	          	<a href="#" onclick="filterTimeline(1)">Interests Timeline</a>
+	          	<a href="#" id="filter-following">Following Timeline</a>
+	          	<a href="#" id="filter-interests">Interests Timeline</a>
 	          </div>
 	    </div>
       	<br><br><br>
@@ -118,10 +118,17 @@ $(document).ready(function() {
 		$('#logout-button').load('MenuController');
 	});
 	
-	function filterTimeline(action_number){
+	$('#filter-following').click(function() {
+		var value1 = parseInt("0"); 
 		$('#tweets-container').empty();
-		$('#tweet-container').load('FilterController', {action:action_number});
-	}
+		$('#tweets-container').load('FilterController', {accion:value1});
+	});
+	
+	$('#filter-interests').click(function() {
+		var value2 = parseInt("1"); 
+		$('#tweets-container').empty();
+		$('#tweets-container').load('FilterController', {accion:value2});
+	});
 	
 	function returnTimeline(){
 		$('#tweets-container').empty();

@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.BeanTweet;
-import models.BeanUser;
 import utils.DAO;
 
 /**
@@ -64,49 +63,58 @@ public class GetTweetsController extends HttpServlet {
 			
 			String tweetsToDisplay = (String) request.getParameter("Display");
 			System.out.println(tweetsToDisplay);
+			
 			// Generate Query to get Tweets from DB
-			int number_of_tweets = 9;
-			String getTweetsQuery = "SELECT * FROM Tweet LIMIT " + Integer.toString(number_of_tweets) + ";";
-			ResultSet tweet_rows = dao.executeSQL(getTweetsQuery);
+			int number_of_tweets = 0;
+			String getTweetsQuery = "SELECT * FROM Tweet;";
 			
-			// Fill Beantweet[]
-			BeanTweet[] tweets = new BeanTweet[number_of_tweets];
-			fillBeanTweetsArray(tweets,tweet_rows);
+			String countTweets = "SELECT COUNT(*) as num FROM Tweet;";
+			ResultSet rs = dao.executeSQL(countTweets);
+			rs.first();
+			number_of_tweets = rs.getInt("num");
 			
-			// If tweets have interests get them
-			String interestsQuery = "SELECT Interest FROM tweet_has_interests WHERE Tweet_Id =";
-			
-			for (int i = 0; i < tweets.length; i++){
+			if(number_of_tweets != 0){
+				ResultSet tweet_rows = dao.executeSQL(getTweetsQuery);
 				
-				// complete query
-				interestsQuery += tweets[i].getId() + ";";
-				ResultSet interest_rows = dao.executeSQL(interestsQuery);
+				// Fill Beantweet[]
+				BeanTweet[] tweets = new BeanTweet[number_of_tweets];
+				fillBeanTweetsArray(tweets,tweet_rows);
 				
-				// Restart string query
-				interestsQuery = "SELECT Interest FROM tweet_has_interests WHERE Tweet_Id =";
+				// If tweets have interests get them
+				String interestsQuery = "SELECT Interest FROM tweet_has_interests WHERE Tweet_Id =";
 				
-				// if tweet has interests
-				ArrayList<String> interest_array = new ArrayList<String>();
-				interest_rows.beforeFirst();
-				while(interest_rows.next()){
-					String interest = interest_rows.getString("Interest");
-					interest_array.add(interest);
+				for (int i = 0; i < tweets.length; i++){
+					
+					// complete query
+					interestsQuery += tweets[i].getId() + ";";
+					ResultSet interest_rows = dao.executeSQL(interestsQuery);
+					
+					// Restart string query
+					interestsQuery = "SELECT Interest FROM tweet_has_interests WHERE Tweet_Id =";
+					
+					// if tweet has interests
+					ArrayList<String> interest_array = new ArrayList<String>();
+					interest_rows.beforeFirst();
+					while(interest_rows.next()){
+						String interest = interest_rows.getString("Interest");
+						interest_array.add(interest);
+					}
+					
+					if(!interest_array.isEmpty()){
+						String[] interests = new String[interest_array.size()];
+						interests = interest_array.toArray(interests);
+						// update tweet
+						tweets[i].setInterests(interests);
+					}
 				}
 				
-				if(!interest_array.isEmpty()){
-					String[] interests = new String[interest_array.size()];
-					interests = interest_array.toArray(interests);
-					// update tweet
-					tweets[i].setInterests(interests);
-				}
+				//pass tweets to request
+				request.setAttribute("tweets", tweets);
 			}
 			
-			//pass tweets to request
-			request.setAttribute("tweets", tweets);
 			request.setAttribute("display", tweetsToDisplay);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewTweets.jsp");
 			dispatcher.forward(request, response);	
-			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
