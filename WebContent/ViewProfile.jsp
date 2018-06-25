@@ -151,9 +151,16 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 	        <div class="container">
 	          <p>Interests</p>
 	          <p>
-	          <%for(String interest : user.getInterests()){ %>
-	            <span class="tag small theme-d2"><%=interest%></span>
-	            <%} %>
+				<%if(user.getInterests() != null){ 
+					for(String interest : user.getInterests()){ %>
+					<span class="tag small theme-d2"><%=interest%></span>
+					<%}
+					}else{
+						if(user.getUser().equals(userLogin.getUser())){%>
+							Add your interests!
+							<a id="modificar-info" href="#" class="bar-item button hide-small padding-large hover-white" title="Add your Interests" onclick="modifyProfile()"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+						<%}
+					}%>
 	          </p>
 	        </div>
 	      </div>
