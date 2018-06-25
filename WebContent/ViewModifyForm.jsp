@@ -64,7 +64,7 @@ $(document).ready(function(){
 	
 	<p>
         <label> Username </label>
-        <input type="text" pattern="[a-zA-Z]{1,20}" title="Only letters with no spaces" name="user" id="user" class="input-text" value="<%=user.getUser() %>" required>
+        <input type="text" pattern="[a-zA-Z]{1,20}" title="Only letters with no spaces" name="user" id="user" class="input-text" value="<%=user.getUser() %>" required disabled>
         <%  
           if ( user.getError()[3] == 1 )
             out.println("<small style='color:Tomato'>The username already exists in our DB!</small>");
@@ -78,7 +78,7 @@ $(document).ready(function(){
         <%
           if (user.getError()[4] == 1)
             out.println("<small style='color:Tomato'>The email already exists in our DB!</small>");
-        
+    
           if (request.getParameter("mail-conf") != request.getParameter("mail"))
             out.println("<small style='color:Tomato'>The mails do not match!</small>");
         %>
