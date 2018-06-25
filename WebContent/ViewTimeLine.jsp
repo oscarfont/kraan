@@ -21,6 +21,16 @@ $(document).ready(function() {
 	  <div class="row">
 	    <!-- Left Column -->
 	    <div class="col m3"> 
+	    <!-- Buttons to filter timeline -->
+        <div class="dropdown-timeline">
+	        <button class="dropdown-button theme-d4">Filter Timeline<i class="fa fa-caret-down"></i></button>
+	          <div class="dropdown-content">
+	          	<a href="#" onclick="returnTimeline()">Global Timeline</a> 
+	          	<a href="#" onclick="filterTimeline(0)">Following Timeline</a>
+	          	<a href="#" onclick="filterTimeline(1)">Interests Timeline</a>
+	          </div>
+	    </div>
+      	<br><br><br>
 	      <!-- Interests --> 
 	      <div class="card round white hide-small">
 	        <div class="container">
@@ -35,8 +45,8 @@ $(document).ready(function() {
 	            <span class="tag small theme-l1">Technology</span>
 	          </p>
 	        </div>
-	      </div>
-	      <br>
+	       </div>
+	       <br>
 	    <!-- End Left Column -->
 	    </div>
 	    
@@ -79,7 +89,6 @@ $(document).ready(function() {
 	  <h5>&copy; EPAW, 2018.</h5>
 	  <small>Marc Canal, Óscar Font & Lucía Gasión.</small>
 	</footer>
-	 
 	<script>
 	// Accordion
 	function myFunction(id) {
@@ -107,6 +116,16 @@ $(document).ready(function() {
 	$(document).ready(function() {
 		$('#logout-button').load('MenuController');
 	});
+	
+	function filterTimeline(action_number){
+		$('#tweets-container').empty();
+		$('#tweet-container').load('FilterController', {action:action_number});
+	}
+	
+	function returnTimeline(){
+		$('#tweets-container').empty();
+		$('#tweets-container').load("GetTweetsController");
+	}
 	</script>
 	
 </div>
