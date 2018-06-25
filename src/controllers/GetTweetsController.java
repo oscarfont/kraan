@@ -65,7 +65,7 @@ public class GetTweetsController extends HttpServlet {
 			String tweetsToDisplay = (String) request.getParameter("Display");
 			System.out.println(tweetsToDisplay);
 			// Generate Query to get Tweets from DB
-			int number_of_tweets = 10;
+			int number_of_tweets = 9;
 			String getTweetsQuery = "SELECT * FROM Tweet LIMIT " + Integer.toString(number_of_tweets) + ";";
 			ResultSet tweet_rows = dao.executeSQL(getTweetsQuery);
 			

@@ -78,6 +78,12 @@ $(document).ready(function() {
 				<%} %>
 				</p>
 	        </div>
+	        <%if(user.getUser().equals(userLogin.getUser())){ %>
+	        <hr>
+	        <div class="container" id="edit-profile">
+	         <button type="button" class="button theme-d1 margin-bottom"onclick="modifyProfile()"><i class="fa fa-edit"></i>  Edit Profile</button>
+	         </div>
+	         <%} %>
 	      </div>
 	      <br>
 	      
@@ -234,7 +240,14 @@ $(document).ready(function() {
 	</footer>
 </div>
 
-
+<script>
+function modifyProfile() {
+	document.getElementById('tweets-container').style.display = 'none';
+	document.getElementById('modifyProfile-container').style.display = 'inline';
+	var username = "Oriolet";
+	$('#modifyProfile-container').load('ModifyProfileController', {name:username});
+}
+</script>
 
 
 <script>
