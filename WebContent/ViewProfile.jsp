@@ -25,7 +25,6 @@ $(document).ready(function() {
 	    document.getElementById('web-body').style.display = 'inline';
 	    document.body.className = "theme-l5";
 	
-	    alert(tweetstoDisplay);
 	    var tweetstoDisplay = "<%=requestUsername%>";
 	    $('#tweets-container').load("GetTweetsController", {Display:tweetstoDisplay});
 });
@@ -100,7 +99,7 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 				<%} %>
 				</p>
 	        </div>
-	        <%if(user.getUser().equals(userLogin.getUser())){ %>
+	        <%if((user.getUser().equals(userLogin.getUser()) || admin)){ %>
 	        <hr>
 	        <div class="center">
 	        	<div class="container" id="edit-profile">
@@ -115,11 +114,7 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 	         <%} %>
 	      </div>
 	      <br>
-	      <c:if test="${admin == true}">
-			<div class="container" id="delete-profile">
-       		<button type="button" id="delete-user-button" class="button theme-d1 margin-bottom"><i class="fa fa-times"></i>  Delete Profile</button>
-       		</div>
-		</c:if>	
+	      
 	     <!-- User Description --> 
 	      <div class="card round white hide-small">
 	        <div class="container">
@@ -219,7 +214,8 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 function modifyProfile() {
 	document.getElementById('tweets-container').style.display = 'none';
 	document.getElementById('modifyProfile-container').style.display = 'inline';
-	$('#modifyProfile-container').load('ModifyProfileController');
+	 var usertomodify = "<%=requestUsername%>";
+	$('#modifyProfile-container').load('ModifyProfileController', {username:usertomodify});
 }
 </script>
 
