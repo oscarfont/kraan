@@ -250,11 +250,12 @@ public class DAO extends HttpServlet {
 		
 		if(interests.first()){
 			int i = 0;
+			interests.beforeFirst();
 				while(interests.next()) {
 					i++;
 				}
 			String [] interestList = new String[i];
-			interests.isFirst();
+			interests.beforeFirst();
 			i = 0;
 				while(interests.next()) {
 					interestList[i] = interests.getString(1);
@@ -264,18 +265,19 @@ public class DAO extends HttpServlet {
 				
 				user.setInterests(interestList);		
 		}else{
-			user.setBirthdate("");
+			user.setInterests(null);
 		};
+		
 		
 	}
 	public void modifyUser(BeanUser user) throws SQLException {
 		
 		String username = user.getUser();		
 		
-		//String updateQuery = "UPDATE Users SET Name='" + user.getName() + "', Surname='" + user.getSurname() + "', Gender='" + user.getGender() + 
-				//"', Job='" + user.getJob() + "', Location='" + user.getLocation() + "' WHERE Username ='" + username + "';";
-		//System.out.println(updateQuery);
-		//int result = UpdateSQL(updateQuery);
+		/*String updateQuery = "UPDATE Users SET Name='" + user.getName() + "', Surname='" + user.getSurname() + "', Gender='" + user.getGender() + 
+				"', Job='" + user.getJob() + "', Location='" + user.getLocation() + "' WHERE Username ='" + username + "';";
+		System.out.println(updateQuery);
+		int result = UpdateSQL(updateQuery);*/
 
 		//Update Name
 		String name = user.getName();
@@ -313,11 +315,18 @@ public class DAO extends HttpServlet {
 		}
 		
 		//Update Birthdate
-		/*String birthdate = user.getBirthdate();
+		String birthdate = user.getBirthdate();
 		if(!birthdate.equals("")){
 			String updatebirthdate = "UPDATE Users SET Birthdate='" + birthdate + "' WHERE Username ='" + username + "';";
 			int result = UpdateSQL(updatebirthdate);
-		}*/
+		}
+		
+		//Update Description
+		String description = user.getDescription();
+		if(!description.equals("")){
+			String updatedescription = "UPDATE descriptions SET Description='" + description + "' WHERE Username ='" + username + "';";
+			int result = UpdateSQL(updatedescription);
+		}
 	}
 
 

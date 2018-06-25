@@ -44,7 +44,7 @@ $(document).ready(function() {
 				<%if(user.getJob().equals("")){ %>
 					<%if(user.getUser().equals(userLogin.getUser())){ %>
 						Add a job description
-						<a id="modificar-info" href="#" class="bar-item button hide-small padding-large hover-white" title="Add a job description"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+						<a id="modificar-job" href="#" class="bar-item button hide-small padding-large hover-white" title="Add a job description" onclick="modifyProfile()"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
 					<%} else{ %>
 						No Job description
 					<%} %>
@@ -57,7 +57,7 @@ $(document).ready(function() {
 				<%if(user.getLocation().equals("")){ %>
 					<%if(user.getUser().equals(userLogin.getUser())){ %>
 						Add a location description
-						<a id="modificar-info" href="#" class="bar-item button hide-small padding-large hover-white" title="Add a location description"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+						<a id="modificar-location" href="#" class="bar-item button hide-small padding-large hover-white" title="Add a location description"onclick="modifyProfile()"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
 					<%}else{ %>
 						No Location description
 					<%} %>
@@ -69,7 +69,7 @@ $(document).ready(function() {
 	         	<%if(user.getBirthdate().equals("")){ %>
 					<%if(user.getUser().equals(userLogin.getUser())){ %>
 						Add your birth date
-						<a id="modificar-info" href="#" class="bar-item button hide-small padding-large hover-white" title="Add your birth date"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+						<a id="modificar-birthdate" href="#" class="bar-item button hide-small padding-large hover-white" title="Add your birth date"onclick="modifyProfile()"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
 					<%}else{ %>
 						No Birth Date information
 					<%} %>
@@ -244,8 +244,7 @@ $(document).ready(function() {
 function modifyProfile() {
 	document.getElementById('tweets-container').style.display = 'none';
 	document.getElementById('modifyProfile-container').style.display = 'inline';
-	var username = "Oriolet";
-	$('#modifyProfile-container').load('ModifyProfileController', {name:username});
+	$('#modifyProfile-container').load('ModifyProfileController');
 }
 </script>
 
@@ -273,15 +272,6 @@ function openNav() {
         x.className = x.className.replace(" show", "");
     }
 };
-</script>
-
-<script>
-$('#modificar-info').click(function() {
-	  document.getElementById('tweets-container').style.display = 'none';
-	  document.getElementById('modifyProfile-container').style.display = 'inline';
-	  var username = "Oriolet";
-	$('#modifyProfile-container').load('ModifyProfileController', {name:username});
-})
 </script>
 
 
