@@ -5,7 +5,7 @@
 <% BeanUser user = (BeanUser) request.getAttribute("user"); 
 BeanLogin userLogin = (BeanLogin) session.getAttribute("user");
 String sessionUsername = userLogin.getUser();
-String requestUsername = user.getName();
+String requestUsername = user.getUser();
 
 boolean admin = false;
 String owner = "Yes";
@@ -28,6 +28,7 @@ $(document).ready(function() {
 	    var tweetstoDisplay = <%=isOwner%>;
 	    alert("Ahora irá");
 	    alert(tweetstoDisplay);
+	    var tweetstoDisplay = "<%=requestUsername%>";
 	    $('#tweets-container').load("GetTweetsController", {Display:tweetstoDisplay});
 });
 </script>
