@@ -10,9 +10,14 @@
 <%
 	BeanTweet[] tweets = (BeanTweet[]) request.getAttribute("tweets");
 	BeanLogin user = null;
+	boolean admin = false;
 	if(session.getAttribute("user") != null){
-		user = (BeanLogin) session.getAttribute("user"); 
+		user = (BeanLogin) session.getAttribute("user");
 	}
+	if(session.getAttribute("admin") != null){
+		admin = (boolean) session.getAttribute("admin");
+	}
+	System.out.println(admin);
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -22,7 +27,7 @@
 <c:forEach items="${tweets}" var="tweet">
 	<div id="tweet_${tweet.id}" class="container card white round margin"><br>
      	<!-- Button to delete or edit tweet -->
-     	<c:if test="${user.user == tweet.author }">
+     	<c:if test="${user.user == tweet.author or admin == true}">
      		<button id="tweet-config-button${tweet.id}" onclick="settings_button(${tweet.id})" class="fa fa-cog right"></button>
      		<div id="tweet-config-${tweet.id}" class="right margin-right" style="display:none;z-index:2;">
 				<div id="tweet-edit" class="theme-l5 right" onclick="editTweet(${tweet.id})" style="padding:10px;width:80px;margin-right:5px;text-align:center;">Edit</div>

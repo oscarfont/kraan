@@ -8,7 +8,7 @@
 	BeanTweet tweet = null;
 	String tweet_content = new String();
 	java.sql.Date new_date = new java.sql.Date(0);
-	String[] interests = {"hola"};
+	String[] interests = null;
 	int id = 0;
 	if(request.getAttribute("tweet") != null){
 		tweet = (BeanTweet) request.getAttribute("tweet");
@@ -18,15 +18,19 @@
 		interests = tweet.getInterests();
 		id = tweet.getId();
 	}
-	String interest_array = "[";
-	for(int i = 0; i < interests.length; i++){
-		if(i == interests.length - 1){
-			interest_array += "'" + interests[i];
-		}else{
-			interest_array += "'" + interests[i] + "',";
+	
+	String interest_array = null;
+	if(interests != null){
+		interest_array = "[";
+		for(int i = 0; i < interests.length; i++){
+			if(i == interests.length - 1){
+				interest_array += "'" + interests[i];
+			}else{
+				interest_array += "'" + interests[i] + "',";
+			}
 		}
+		interest_array += "]";	
 	}
-	interest_array += "]";
 %>
 		
 <!-- Tweet -->
@@ -36,7 +40,7 @@
   <div id="tweettopics-edit"></div>
   <div class="margin-bottom margin-top">
 	  <button id="addTopic-edit" class="button theme">+</button>
-	  <button id="tweet-edit" class="button theme"><i class="fa fa-pencil"></i>Edit</button> 
+	  <button id="edit-tweet" class="button theme"><i class="fa fa-pencil"></i>Edit</button> 
   </div> 
  </div>
 </div>
@@ -53,22 +57,26 @@
 		
 		// process Interests
 		var interests_string = "<%=interest_array%>";
-		interests_string = interests_string.replace("[","");
-		interests_string = interests_string.replace("]","");
-		var interests = interests_string.split(",");
+		console.log(interests_string);
 		
-		console.log(interests);
-		
-		for(i = 0; i < interests.length; i++){
-			interests[i] = interests[i].replace("'","");
-			interests[i] = interests[i].replace("'","");
-			var interest_id = '#'+interests[i] + i;
-			$('#tweettopics-edit').append("<select id='interest_"+ i +"'><option id='religion"+ i +"' value='religion'>Religion</option><option id='sport"+ i +"' value='sport'>Sport</option><option id='music"+ i +"' value='music'>Music</option><option id='politics"+ i +"' value='politics'>Politics</option><option id='art"+ i +"' value='art'>Art</option><option id='food"+ i +"' value='food'>Food</option><option id='technology"+ i +"' value='technology'>Technology</option></select>");
-			$(interest_id).attr("selected", 'selected');
+		if(interests_string.localeCompare("null") != 0){
+			interests_string = interests_string.replace("[","");
+			interests_string = interests_string.replace("]","");
+			var interests = interests_string.split(",");
+			
+			console.log(interests);
+			
+			for(i = 0; i < interests.length; i++){
+				interests[i] = interests[i].replace("'","");
+				interests[i] = interests[i].replace("'","");
+				var interest_id = '#'+interests[i] + i;
+				$('#tweettopics-edit').append("<select id='interest_"+ i +"'><option id='religion"+ i +"' value='religion'>Religion</option><option id='sport"+ i +"' value='sport'>Sport</option><option id='music"+ i +"' value='music'>Music</option><option id='politics"+ i +"' value='politics'>Politics</option><option id='art"+ i +"' value='art'>Art</option><option id='food"+ i +"' value='food'>Food</option><option id='technology"+ i +"' value='technology'>Technology</option></select>");
+				$(interest_id).attr("selected", 'selected');
+			}
 		}
 	});
 	
-	$('#tweet-edit').click(function(){
+	$('#edit-tweet').click(function(){
 		
 		var code = 0;
 		var tweet = $('#tweet-edit-content').text();

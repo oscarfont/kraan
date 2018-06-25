@@ -123,6 +123,7 @@ public class EditTweetController extends HttpServlet {
 					dao.UpdateSQL(deleteInterests);
 					
 					for(String interest : interests){
+						if(interest == "") continue;
 						checkInterestQuery += interest + "';";
 						ResultSet rsl = dao.executeSQL(checkInterestQuery);
 						if(!rsl.first()){
