@@ -151,13 +151,9 @@ $(document).ready(function() {
 	        <div class="container">
 	          <p>Interests</p>
 	          <p>
-	            <span class="tag small theme-d5">Religion</span>
-	            <span class="tag small theme-d4">Sport</span>
-	            <span class="tag small theme-d3">Music</span>
-	            <span class="tag small theme-d2">Politics</span>
-	            <span class="tag small theme-d1">Art</span>
-	            <span class="tag small theme">Food</span>
-	            <span class="tag small theme-l1">Technology</span>
+	          <%for(String interest : user.getInterests()){ %>
+	            <span class="tag small theme-d2"><%=interest%></span>
+	            <%} %>
 	          </p>
 	        </div>
 	      </div>
