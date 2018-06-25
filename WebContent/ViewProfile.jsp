@@ -6,7 +6,7 @@
 BeanLogin userLogin = (BeanLogin) session.getAttribute("user");
 
 String sessionUsername = userLogin.getUser();
-String requestUsername = user.getName();
+String requestUsername = user.getUser();
 
 boolean admin = false;
 String owner = "Yes";
@@ -25,7 +25,7 @@ $(document).ready(function() {
 	    //$('#logout-button').load('MenuController');
 	    document.getElementById('web-body').style.display = 'inline';
 	    document.body.className = "theme-l5";
-	    var tweetstoDisplay = "Oriolet"
+	    var tweetstoDisplay = "<%=requestUsername%>";
 	    $('#tweets-container').load("GetTweetsController", {Display:tweetstoDisplay});
 });
 </script>
