@@ -4,7 +4,6 @@
  
 <% BeanUser user = (BeanUser) request.getAttribute("user"); 
 BeanLogin userLogin = (BeanLogin) session.getAttribute("user");
-
 String sessionUsername = userLogin.getUser();
 String requestUsername = user.getName();
 
@@ -25,7 +24,10 @@ $(document).ready(function() {
 	    //$('#logout-button').load('MenuController');
 	    document.getElementById('web-body').style.display = 'inline';
 	    document.body.className = "theme-l5";
-	    var tweetstoDisplay = "Oriolet"
+	
+	    var tweetstoDisplay = <%=isOwner%>;
+	    alert("Ahora irá");
+	    alert(tweetstoDisplay);
 	    $('#tweets-container').load("GetTweetsController", {Display:tweetstoDisplay});
 });
 </script>
