@@ -55,37 +55,46 @@
 	       <button type="button" class="button theme-d3 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
 		</div>
 	</c:forEach>
-	<%}else{ %>
-			<c:forEach items="${tweets}" var="tweet">
+	<%}else{ 
+		int count = 0;
+	%>
+	<c:forEach items="${tweets}" var="tweet">
+		<c:if test="${display == tweet.author}">
+			<% count++; %>
 	     	<!-- Button to delete or edit tweet -->
-	     	<c:if test="${display == tweet.author or admin == true }">
-	     		<div class="container card white round margin"><br>
+	     	<div class="container card white round margin"><br>
+	     	<c:if test="${user.user == tweet.author or admin == true }">
 					<button id="tweet-config-button${tweet.id}" onclick="settings_button(${tweet.id})" class="fa fa-cog right"></button>
 	     		<div id="tweet-config-${tweet.id}" class="right margin-right" style="display:none;z-index:2;">
 					<div id="tweet-edit" class="theme-l5 right" onclick="editTweet(${tweet.id})" style="padding:10px;width:80px;margin-right:5px;text-align:center;">Edit</div>
 					<div id="tweet-delete-${tweet.id}" onclick="deleteTweet(${tweet.id})" class="theme-l5 right" style="padding:10px;width:80px;margin-right:5px;text-align:center;">Delete</div>
 				</div>
-		     	<img src="images/img_avatar2.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-		     	<h4>${tweet.author}</h4>
-		     	<span class="left opacity">${tweet.date}</span><br>
-		     	<hr class="clear">
-		     	<p>${tweet.content}</p>
-		     	<c:if test="${tweet.interests != null }">
-		     		<p>Interests:
-		     		<c:forEach items="${tweet.interests}" var="interest">
-		     			<c:out value="${interest} "></c:out>
-		     		</c:forEach>
-		     		</p>
-		     	</c:if>
-		     	<button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
-		     	 <button type="button" class="button theme-d2 margin-bottom"><i class="fa fa-thumbs-down"></i>  Retweet</button> 
-		     	 <button type="button" class="button theme-d3 margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
-		     	 </div>      		
-	       </c:if> 
-	
+			</c:if> 
+	     	<img src="images/img_avatar2.png" alt="Avatar" class="left circle margin-right" style="width:60px">
+	     	<h4>${tweet.author}</h4>
+	     	<span class="left opacity">${tweet.date}</span><br>
+	     	<hr class="clear">
+	     	<p>${tweet.content}</p>
+	     	<c:if test="${tweet.interests != null }">
+	     		<p>Interests:
+	     		<c:forEach items="${tweet.interests}" var="interest">
+	     			<c:out value="${interest} "></c:out>
+	     		</c:forEach>
+	     		</p>
+	     	</c:if>
+	     	<button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
+	     	<button type="button" class="button theme-d2 margin-bottom"><i class="fa fa-thumbs-down"></i>  Retweet</button> 
+	     	<button type="button" class="button theme-d3 margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
+	     	</div>
+	     </c:if>
 	</c:forEach>
-	<%} %>
-<%}%>
+		<% if(count == 0){ %>
+			<div class="card round white padding-16 center">
+				<p>No tweets for now.</p>
+			</div>
+		<% } 
+	 }
+} %>
 
 
 
