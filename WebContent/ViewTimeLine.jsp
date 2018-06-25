@@ -105,6 +105,10 @@ $(document).ready(function() {
 	        x.className = x.className.replace(" show", "");
 	    }
 	};
+	
+	$(document).ready(function() {
+		$('#logout-button').load('MenuController');
+	});
 	</script>
 	
 </div>
