@@ -23,8 +23,8 @@
 	<div id="tweet_${tweet.id}" class="container card white round margin"><br>
      	<!-- Button to delete or edit tweet -->
      	<c:if test="${user.user == tweet.author }">
-     		<button id="tweet-config-button"class="fa fa-cog right"></button>
-     		<div id="tweet-config" class="right margin-right" style="display:none;z-index:2;">
+     		<button id="tweet-config-button${tweet.id}" onclick="settings_button(${tweet.id})" class="fa fa-cog right"></button>
+     		<div id="tweet-config-${tweet.id}" class="right margin-right" style="display:none;z-index:2;">
 				<div id="tweet-edit" class="theme-l5 right" onclick="editTweet(${tweet.id})" style="padding:10px;width:80px;margin-right:5px;text-align:center;">Edit</div>
 				<div id="tweet-delete" class="theme-l5 right" style="padding:10px;width:80px;margin-right:5px;text-align:center;">Delete</div>
 			</div>
@@ -52,9 +52,10 @@
 </body>
 <script>
 // Edit and delete tweets
-$('#tweet-config-button').click(function() {
-	$('#tweet-config').toggle();
-})
+function settings_button(id) {
+	console.log('#tweet-config-'+id);
+	$('#tweet-config-'+id).toggle();
+}
 
 function editTweet(id){
 	alert("He entrado!");
