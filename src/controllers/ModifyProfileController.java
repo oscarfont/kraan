@@ -41,8 +41,9 @@ public class ModifyProfileController extends HttpServlet {
 		
 		   try {
 			   HttpSession session = request.getSession();
-			   BeanLogin userLogin = (BeanLogin) session.getAttribute("user");
-			   String username = userLogin.getUser();
+			   //BeanLogin userLogin = (BeanLogin) session.getAttribute("user");
+			   String username = (String) request.getParameter("username");
+			   //String username = userLogin.getUser();
 			   System.out.println(username);
 			   //String toLoad = (String) request.getParameter("toLoad");
 			   //System.out.println(username);
