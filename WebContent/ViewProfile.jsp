@@ -65,17 +65,13 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 	         </p>
 	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i> April 1, 1988</p>
 			 <% if(!isOwner.equals("Yes")){ %>
-				<div id="follow-div" class="center">
-				</div>
+				<div id="follow-div" class="center"></div>
 			 <% } %>
-			</div>
+			</div> 
 	      </div>
 	      <br>
 	
-	<div id="showFollowing1" class="card round"></div>
-	<div id="showFollowers1" class="card round"></div>
-	
-		  <!-- Accordion -->
+		  <!-- Followers and followings list -->
 	      <div class="card round">
 	        <div class="white">
 	          <button id="showFollowingButton" onclick="dropdown('showFollowing')" class="button block theme-l1 left-align"><i class="fa fa-star fa-fw margin-right"></i> Following</button>
@@ -86,7 +82,7 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 	      </div>
 	      <br>
 	      
-	      <!-- Interests --> 
+	      <!-- Interests list --> 
 	      <div class="card round white hide-small">
 	        <div class="container">
 	          <p>Interests</p>
