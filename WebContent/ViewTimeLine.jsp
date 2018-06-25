@@ -21,8 +21,17 @@ $(document).ready(function() {
 	  <!-- The Grid -->
 	  <div class="row">
 	    <!-- Left Column -->
-	    <div class="col m3">
-	    <p> Left Column of timeline </p>  
+	    <div class="col m3"> 
+	    <!-- Buttons to filter timeline -->
+        <div class="dropdown-timeline">
+	        <button class="dropdown-button theme-d4">Filter Timeline<i class="fa fa-caret-down"></i></button>
+	          <div class="dropdown-content">
+	          	<a href="#" onclick="returnTimeline()">Global Timeline</a> 
+	          	<a href="#" onclick="filterTimeline(0)">Following Timeline</a>
+	          	<a href="#" onclick="filterTimeline(1)">Interests Timeline</a>
+	          </div>
+	    </div>
+      	<br><br><br>
 	      <!-- Interests --> 
 	      <div class="card round white hide-small">
 	        <div class="container">
@@ -37,14 +46,13 @@ $(document).ready(function() {
 	            <span class="tag small theme-l1">Technology</span>
 	          </p>
 	        </div>
-	      </div>
-	      <br>
+	       </div>
+	       <br>
 	    <!-- End Left Column -->
 	    </div>
 	    
 	    <!-- Middle Column -->
 	    <div class="col m7">
-		<p> Middle Column of timeline </p>
 		
 		<!-- Tweet -->
 		<c:if test="${user != null}">
@@ -57,8 +65,7 @@ $(document).ready(function() {
 	    </div>
 	    
 	    <!-- Right Column -->
-	    <div class="col m2">
-	    <p> Right Column of timeline </p>   
+	    <div class="col m2"> 
 	      <div class="card round white padding-16 center">
 	        <p>ADS</p>
 	      </div>
@@ -80,9 +87,9 @@ $(document).ready(function() {
 	
 	<!-- Footer -->
 	<footer class="container theme-d3 padding-16">
-	  <h5>Footer</h5>
+	  <h5>&copy; EPAW, 2018.</h5>
+	  <small>Marc Canal, Óscar Font & Lucía Gasión.</small>
 	</footer>
-	 
 	<script>
 	// Accordion
 	function myFunction(id) {
@@ -106,6 +113,20 @@ $(document).ready(function() {
 	        x.className = x.className.replace(" show", "");
 	    }
 	};
+	
+	$(document).ready(function() {
+		$('#logout-button').load('MenuController');
+	});
+	
+	function filterTimeline(action_number){
+		$('#tweets-container').empty();
+		$('#tweet-container').load('FilterController', {action:action_number});
+	}
+	
+	function returnTimeline(){
+		$('#tweets-container').empty();
+		$('#tweets-container').load("GetTweetsController");
+	}
 	</script>
 	
 </div>

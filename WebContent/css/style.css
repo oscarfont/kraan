@@ -34,7 +34,9 @@ button:-moz-focusring, [type=button]:-moz-focusring, [type=reset]:-moz-focusring
 ::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}
 .select{padding:9px 0;width:100%;border:none;border-bottom:1px solid #ccc}
 .check,.radio{width:24px;height:24px;position:relative;top:6px}
-.search-user{width:70%;background-color:#fff;margin:3px;border:none;padding:4px;} .search-user:hover{background-color:#ffffaa;}
+.search-user{width:70%;} .list-user{width:100%;}
+.search-user, .list-user{background-color:#fff;margin:3px;border:none;padding:4px;} 
+.search-user:hover, .list-user:hover{background-color:#ffffaa;}
 
 /* DROPDOWN */
 .dropdown-click,.dropdown-hover{position:relative;display:inline-block;cursor:pointer}
@@ -44,6 +46,48 @@ button:-moz-focusring, [type=button]:-moz-focusring, [type=reset]:-moz-focusring
 .dropdown-content{cursor:auto;color:#000;background-color:#fff;display:none;position:absolute;min-width:160px;margin:0;padding:0;z-index:1}
 .dropdown-hover.mobile .dropdown-content,.dropdown-click.mobile .dropdown-content{position:relative}
 .dropdown-search{padding:6px 20px;border:none;width:300px;height:200px;position:relative;display:inline-block;z-index:2;overflow:auto;}
+.dropdown-timeline {
+    float: left;
+	width:100%;
+}
+
+.dropdown-timeline .dropdown-button {
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    width:100%;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown-timeline:hover .dropdown-content {
+    display: block;
+}
+
 
 /* BAR */
 .sidebar{height:100%;width:200px;background-color:#fff;position:fixed!important;z-index:1;overflow:auto}

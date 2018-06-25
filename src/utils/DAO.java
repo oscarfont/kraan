@@ -91,16 +91,15 @@ public class DAO extends HttpServlet {
 			user.setPassword(salterPassword);
 			
 			// Create Query to insert User
+			// TODO replaceAll("'", "''") a todas las variables que se le pasan
 			String newUser = "INSERT INTO Users(Name, Surname, Gender, Username, Email, Password, IsAdmin) VALUES(";
 			newUser = newUser + "'" + user.getName() + "', '" +  user.getSurname() + "', '" + user.getGender() + "', '" + user.getUser() + "', '" + user.getMail() + "', '" + user.getPassword() + "', 0);";
 			
 			// Add User to table
-			System.out.println();
 			UpdateSQL(newUser);
 			
 			String[] interests = user.getInterests();
 			// If the user introduced interests
-			System.out.println(interests);
 			if(interests != null){
 				// Add User and his Interests to the Interests Table
 				for(String i : interests){
@@ -159,9 +158,9 @@ public class DAO extends HttpServlet {
 		
 		String loginQuery = "SELECT Username FROM Users WHERE Username = '" + login.getUser() + "' AND Password = '" + login.getPassword() + "';";
 		ResultSet checkLogin = executeSQL(loginQuery);
-		System.out.println(loginQuery);
+
 		boolean loginCorrect = checkLogin.first();
-		//System.out.println(checkLogin.getString(1));
+
 		if(!loginCorrect) {
 			int newError = 0;
 			newError = 1;
@@ -173,7 +172,7 @@ public class DAO extends HttpServlet {
 
 		String nameQuery = "SELECT Name FROM Users WHERE Username = '" + username + "';";
 		ResultSet name = executeSQL(nameQuery);
-		System.out.println(nameQuery);
+
 		name.first();
 		user.setName(name.getString(1));
 		
@@ -206,14 +205,13 @@ public class DAO extends HttpServlet {
 			if(job.getString(1) != null){
 				String result = job.getString(1);
 				user.setJob(result);
-				System.out.println(job.getString(1));
 			}
 			
 		}else{
 			user.setJob("");
 		}
 		String locationQuery = "SELECT Location FROM Users WHERE Username = '" + username + "';";
-		System.out.println(locationQuery);
+
 		ResultSet location = executeSQL(locationQuery);
 		//Aqui tractar el tema de que no hi hagi resultset
 		//Mirar nomes la location, if(location.getString(1) == NULL)
@@ -222,7 +220,6 @@ public class DAO extends HttpServlet {
 			if(location.getString(1) != null){
 				String result = location.getString(1);
 				user.setLocation(result);
-				System.out.println(location.getString(1));
 			}
 			
 		}else{

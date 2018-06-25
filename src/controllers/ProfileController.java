@@ -47,6 +47,10 @@ public class ProfileController extends HttpServlet {
 
 			HttpSession session = request.getSession();
 			BeanLogin userlogin = (BeanLogin) session.getAttribute("user");
+			
+			if(owner == null) return;
+			if(userlogin == null) return;
+			
 			if(owner.equals("Yes")){
 				username = userlogin.getUser();
 			}else{
@@ -54,19 +58,14 @@ public class ProfileController extends HttpServlet {
 			}
 			DAO dao = new DAO();
 			dao.profile(user, username);
-			//System.out.println(user.getJob());
-			//System.out.println(user.getLocation());
+
 			user.setUser(username);
 			request.setAttribute("user", user);
+			request.setAttribute("own_profile", owner);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewProfile.jsp");
 			dispatcher.forward(request, response);
 			//response.getWriter().append("Served at: ").append(request.getContextPath());
-			
-			
-			//System.out.println(user.getJob());
-			
-			
 			
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO Auto-generated catch block

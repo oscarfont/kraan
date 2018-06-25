@@ -27,8 +27,10 @@ $(document).ready(function(){
 %>
 
 <!-- Register -->
-<div id="register-form">
-<form id="registerForm" action="" method="POST">
+<div class="col m7">
+<div class="container card white round margin padding">
+	<div id="register-form">
+	<form id="registerForm" action="" method="POST">
 
 	<p>
 		<label> Name </label>
@@ -115,6 +117,8 @@ $(document).ready(function(){
  </div>
 </form>
 </div>
+
+</div>
+</div>
 <script>
 </script>
-}

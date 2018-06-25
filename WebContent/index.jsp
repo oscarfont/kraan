@@ -33,15 +33,6 @@
 	  <a href="#" class="bar-item button padding-large theme-d4" id="kraan-button"><i class="fa fa-home margin-right"></i>Kraan</a>
 	  <a id="timeline-button" href="#" class="bar-item button hide-small padding-large hover-white" title="TimeLine"><i class="fa fa-globe"></i></a>
 	  <a id="profile-button" href="#" class="bar-item button hide-small padding-large hover-white" title="User Profile"><i class="fa fa-user"></i></a>
-	  <a href="#" class="bar-item button hide-small padding-large hover-white" title="Messages"><i class="fa fa-envelope"></i></a>
-	  <div class="dropdown-hover hide-small">
-	    <button class="button padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="badge right small green">3</span></button>     
-	    <div class="dropdown-content card-4 bar-block" style="width:300px">
-	      <a href="#" class="bar-item button">One new friend request</a>
-	      <a href="#" class="bar-item button">John Doe posted on your wall</a>
-	      <a href="#" class="bar-item button">Jane likes your post</a>
-	    </div>
-	  </div>
 	  <div id="logout-button" class="right"></div>
 	  <input type="text" id="search-text" class="search-bar right" style="margin-right:10px" placeholder="Search user...">
       <button type="button" id="search-button" class="search-bar theme-l1 right"><i class="fa fa-search"></i></button>
