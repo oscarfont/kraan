@@ -4,7 +4,6 @@
  
 <% BeanUser user = (BeanUser) request.getAttribute("user"); 
 BeanLogin userLogin = (BeanLogin) session.getAttribute("user");
-
 String sessionUsername = userLogin.getUser();
 String requestUsername = user.getUser();
 
@@ -25,6 +24,10 @@ $(document).ready(function() {
 	    //$('#logout-button').load('MenuController');
 	    document.getElementById('web-body').style.display = 'inline';
 	    document.body.className = "theme-l5";
+	
+	    var tweetstoDisplay = <%=isOwner%>;
+	    alert("Ahora irá");
+	    alert(tweetstoDisplay);
 	    var tweetstoDisplay = "<%=requestUsername%>";
 	    $('#tweets-container').load("GetTweetsController", {Display:tweetstoDisplay});
 });
@@ -149,9 +152,16 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 	        <div class="container">
 	          <p>Interests</p>
 	          <p>
-	          <%for(String interest : user.getInterests()){ %>
-	            <span class="tag small theme-d2"><%=interest%></span>
-	            <%} %>
+				<%if(user.getInterests() != null){ 
+					for(String interest : user.getInterests()){ %>
+					<span class="tag small theme-d2"><%=interest%></span>
+					<%}
+					}else{
+						if(user.getUser().equals(userLogin.getUser())){%>
+							Add your interests!
+							<a id="modificar-info" href="#" class="bar-item button hide-small padding-large hover-white" title="Add your Interests" onclick="modifyProfile()"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+						<%}
+					}%>
 	          </p>
 	        </div>
 	      </div>

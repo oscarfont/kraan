@@ -11,7 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import models.BeanLogin;
 import models.BeanTweet;
 import utils.DAO;
 
@@ -61,7 +63,15 @@ public class GetTweetsController extends HttpServlet {
 		try {
 			DAO dao = new DAO();
 			
+			System.out.println("GetTweetsController");
 			String tweetsToDisplay = (String) request.getParameter("Display");
+			 
+			//if the user is the owner
+			if(tweetsToDisplay.equals("Yes")){
+				HttpSession session = request.getSession();
+				BeanLogin user = (BeanLogin) session.getAttribute("user");
+				tweetsToDisplay = user.getUser();
+			}
 			System.out.println(tweetsToDisplay);
 			
 			// Generate Query to get Tweets from DB
