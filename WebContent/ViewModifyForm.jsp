@@ -9,6 +9,7 @@ $(document).ready(function(){
 		  alert( "HOLAAA" );*/
 		  event.preventDefault();
 		  $('#log-body').load('ModifyProfileController',$("#registerForm").serialize());
+
 	});
 });
 </script>
@@ -17,6 +18,8 @@ $(document).ready(function(){
 	BeanUser user = null;
 	if (request.getAttribute("user")!=null) {
 		user = (BeanUser)request.getAttribute("user");
+		System.out.println("Este aqui");
+		System.out.println(user.getUser());
 	}
 	else {
 		user = new BeanUser();
@@ -71,7 +74,7 @@ $(document).ready(function(){
 	<p>
         <label> E-mail </label>
         <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Must be a valid mail" name="mail" id="mail" class="input-text" value="<%=user.getMail() %>" placeholder="Enter email..." required>
-        <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Must be a valid mail" name="mail" id="mail-conf" class="input-text" placeholder="Repeat email..." required>
+        <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Must be a valid mail" name="mail" id="mail-conf" class="input-text" value="<%=user.getMail() %>" placeholder="Repeat email..." required>
         <%
           if (user.getError()[4] == 1)
             out.println("<small style='color:Tomato'>The email already exists in our DB!</small>");
@@ -93,7 +96,7 @@ $(document).ready(function(){
 	
 	<p>
         <label> User Description </label>
-        <textarea type="text" name="description" class="input-text" id="description" value="<%=user.getDescription() %>" maxlength="120"></textarea>
+        <textarea name="description" class="input-text" id="description" maxlength="120"> <%= user.getDescription() %></textarea>
     </p>
 	
 	<p>

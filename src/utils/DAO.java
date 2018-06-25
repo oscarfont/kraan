@@ -175,6 +175,24 @@ public class DAO extends HttpServlet {
 		System.out.println(nameQuery);
 		name.first();
 		user.setName(name.getString(1));
+		
+		String surnameQuery = "SELECT Surname FROM Users WHERE Username = '" + username + "';";
+		ResultSet surname = executeSQL(surnameQuery);
+		surname.first();
+		user.setSurname(surname.getString(1));
+		
+		String genderQuery = "SELECT Gender FROM Users WHERE Username = '" + username + "';";
+		ResultSet gender = executeSQL(genderQuery);
+		gender.first();
+		user.setGender(gender.getString(1));
+		
+		user.setUser(username);
+		
+		String emailQuery = "SELECT Email FROM Users WHERE Username = '" + username + "';";
+		ResultSet Email = executeSQL(emailQuery);
+		Email.first();
+		user.setMail(Email.getString(1));	
+		
 		String descriptionQuery ="SELECT Description FROM Descriptions WHERE Username ='" + username + "';";
 		ResultSet description = executeSQL(descriptionQuery);
 		if(description.first()) {
@@ -225,11 +243,30 @@ public class DAO extends HttpServlet {
 			user.setBirthdate("");
 		};
 		
-	}
-	public void getUserInfo(BeanUser user, String username) {
+		String interestsQuery = "SELECT Interest FROM Interests WHERE Username = '" + username + "';";
+		System.out.println(interestsQuery);
+		ResultSet interests = executeSQL(interestsQuery);
+		
+		if(interests.first()){
+			int i = 0;
+				while(interests.next()) {
+					i++;
+				}
+			String [] interestList = new String[i];
+			interests.isFirst();
+			i = 0;
+				while(interests.next()) {
+					interestList[i] = interests.getString(1);
+					//System.out.println(interests.getString(1));
+					i++;
+				}
+				
+				user.setInterests(interestList);		
+		}else{
+			user.setBirthdate("");
+		};
 		
 	}
-	
 	public void modifyUser(BeanUser user,  HttpServletRequest request, HttpServletResponse response) {
 		
 		

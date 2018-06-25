@@ -38,7 +38,7 @@ public class ModifyProfileController extends HttpServlet {
 		System.out.println("Modify profile Controller");
 		
 		   try {
-			   //String username = (String) request.getParameter("username");
+			   String username = (String) request.getParameter("name");
 			   //String toLoad = (String) request.getParameter("toLoad");
 			   //System.out.println(username);
 			   BeanUser user = new BeanUser();
@@ -46,7 +46,7 @@ public class ModifyProfileController extends HttpServlet {
 			   BeanUtils.populate(user, request.getParameterMap());
 			   
 			
-			   if (user.isComplete()) {
+			   if (false) {
 				  
 				   dao.modifyUser(user, request, response);
 				   //System.out.println(user.getError()[3]);
@@ -62,7 +62,7 @@ public class ModifyProfileController extends HttpServlet {
 			   
 			   } 
 			   else {
-				   // dao.getUserInfo(user, username);
+				   dao.profile(user, username);
 				   //String formLoaded = "Yes";
 				   //request.setAttribute("toLoad",formLoaded);
 				   request.setAttribute("user", user);

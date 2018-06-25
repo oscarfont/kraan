@@ -44,7 +44,7 @@ $(document).ready(function() {
 				<%if(user.getJob().equals("")){ %>
 					<%if(user.getUser().equals(userLogin.getUser())){ %>
 						Add a job description
-						<a id="afegeix-job" href="#" class="bar-item button hide-small padding-large hover-white" title="Add a job description"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+						<a id="modificar-info" href="#" class="bar-item button hide-small padding-large hover-white" title="Add a job description"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
 					<%} else{ %>
 						No Job description
 					<%} %>
@@ -57,7 +57,7 @@ $(document).ready(function() {
 				<%if(user.getLocation().equals("")){ %>
 					<%if(user.getUser().equals(userLogin.getUser())){ %>
 						Add a location description
-						<a id="afegeix-location" href="#" class="bar-item button hide-small padding-large hover-white" title="Add a location description"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+						<a id="modificar-info" href="#" class="bar-item button hide-small padding-large hover-white" title="Add a location description"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
 					<%}else{ %>
 						No Location description
 					<%} %>
@@ -69,7 +69,7 @@ $(document).ready(function() {
 	         	<%if(user.getBirthdate().equals("")){ %>
 					<%if(user.getUser().equals(userLogin.getUser())){ %>
 						Add your birth date
-						<a id="afegeix-birthdate" href="#" class="bar-item button hide-small padding-large hover-white" title="Add your birth date"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+						<a id="modificar-info" href="#" class="bar-item button hide-small padding-large hover-white" title="Add your birth date"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
 					<%}else{ %>
 						No Birth Date information
 					<%} %>
@@ -89,7 +89,7 @@ $(document).ready(function() {
 				<%if(user.getDescription().equals("")){ %>
 					<%if(user.getUser().equals(userLogin.getUser())){ %>
 						Want to add a description?
-						<a id="afegeix-description" href="#" class="bar-item button hide-small padding-large hover-white" title="Add User description"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+						<a id="modificar-info" href="#" class="bar-item button hide-small padding-large hover-white" title="Add User description"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
 					<%}else{ %>
 						No description for this user
 					<%} %>
@@ -172,7 +172,8 @@ $(document).ready(function() {
 	    <!-- Middle Column -->
 	    <div class="col m7">
 	      
-	     <div id="tweets-container"></div>	
+	     <div id="tweets-container"></div>
+	     <div id="modifyProfile-container" style="display:none"></div>	
 	      
 	    <!-- End Middle Column -->
 	    </div>
@@ -262,14 +263,11 @@ function openNav() {
 </script>
 
 <script>
-$('#afegeix-job').click(function() {
-	$('#main-page').load('ModifyProfileController');
-})
-$('#afegeix-location').click(function(){
-	$('#main-page').load('ModifyProfileController');
-})
-$('#afegeix-birthdate').click(function(){
-	$('#main-page').load('ModifyProfileController');
+$('#modificar-info').click(function() {
+	  document.getElementById('tweets-container').style.display = 'none';
+	  document.getElementById('modifyProfile-container').style.display = 'inline';
+	  var username = "Oriolet";
+	$('#modifyProfile-container').load('ModifyProfileController', {name:username});
 })
 </script>
 

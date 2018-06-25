@@ -45,7 +45,6 @@ public class ProfileController extends HttpServlet {
 		
 		try {
 
-			BeanUtils.populate(user, request.getParameterMap());
 			HttpSession session = request.getSession();
 			BeanLogin userlogin = (BeanLogin) session.getAttribute("user");
 			if(owner.equals("Yes")){
