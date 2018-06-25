@@ -57,6 +57,7 @@ public class FilterController extends HttpServlet {
 			HttpSession session = request.getSession();
 			BeanLogin user = (BeanLogin) session.getAttribute("user");
 			
+			String displayTweet = (String) request.getParameter("Display");
 			String actionString = (String) request.getParameter("accion");
 			int action = Integer.parseInt(actionString);
 			int number_of_tweets = 0;
@@ -145,8 +146,13 @@ public class FilterController extends HttpServlet {
 					tweets[i].setInterests(interests);
 				}
 			}
-
+			
+			if(number_of_tweets == 0){
+				tweets = null;
+			}
+			
 			// pass tweets to request
+			request.setAttribute("display", displayTweet);
 			request.setAttribute("tweets", tweets);
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewTweets.jsp");

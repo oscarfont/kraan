@@ -119,20 +119,23 @@ $(document).ready(function() {
 	});
 	
 	$('#filter-following').click(function() {
-		var value1 = parseInt("0"); 
+		var value1 = parseInt("0");
+		var tweetstoDisplay = "All";
 		$('#tweets-container').empty();
-		$('#tweets-container').load('FilterController', {accion:value1});
+		$('#tweets-container').load('FilterController', {accion:value1, Display:tweetstoDisplay});
 	});
 	
 	$('#filter-interests').click(function() {
-		var value2 = parseInt("1"); 
+		var value2 = parseInt("1");
+		var tweetstoDisplay2 = "All";
 		$('#tweets-container').empty();
-		$('#tweets-container').load('FilterController', {accion:value2});
+		$('#tweets-container').load('FilterController', {accion:value2, Display:tweetstoDisplay2});
 	});
 	
 	function returnTimeline(){
+		var tweetstoDisplay = "All";
 		$('#tweets-container').empty();
-		$('#tweets-container').load("GetTweetsController");
+		$('#tweets-container').load("GetTweetsController", {Display:tweetstoDisplay});
 	}
 	</script>
 	
