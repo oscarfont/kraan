@@ -1,33 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 
 	import="models.BeanUser" import="models.BeanLogin" import="utils.DAO" session="true"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-  
-<script type="text/javascript">
-$(document).ready(function() {
-	    $.ajaxSetup({ cache: false }); // Avoids Internet Explorer caching!
-	    
-	    document.getElementById('log-body').style.display = 'none';
-	    //$('#logout-button').load('MenuController');
-	    document.getElementById('web-body').style.display = 'inline';
-	    document.body.className = "theme-l5";
-});
-</script>
-
+ 
 <% BeanUser user = (BeanUser) request.getAttribute("user"); 
 BeanLogin userLogin = (BeanLogin) session.getAttribute("user");
 
+String sessionUsername = userLogin.getUser();
+String requestUsername = user.getName();
+
 boolean admin = false;
 String owner = "Yes";
-String sessionUsername = userLogin.getUser();
-String requestUsername = user.getUser();
 String isOwner = (String) request.getAttribute("own_profile");
 
 if(session.getAttribute("admin") != null){
 	admin = (boolean) session.getAttribute("admin"); 
 }
 
-System.out.println(admin);
 %>
+  
+<script type="text/javascript">
+$(document).ready(function() {
+	    $.ajaxSetup({ cache: false }); // Avoids Internet Explorer caching!
+	    document.getElementById('log-body').style.display = 'none';
+	    //$('#logout-button').load('MenuController');
+	    document.getElementById('web-body').style.display = 'inline';
+	    document.body.className = "theme-l5";
+	    var tweetstoDisplay = "Oriolet"
+	    $('#tweets-container').load("GetTweetsController", {Display:tweetstoDisplay});
+});
+</script>
 
 <script>
 var tofollow = "<%=isOwner%>";
@@ -61,20 +62,70 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 	         <p class="center"><img src="images/img_avatar2.png" class="circle" style="height:106px;width:106px" alt="Avatar"></p>
 	         <hr>
 	         <p><i class="fa fa-pencil fa-fw margin-right text-theme"></i>
-				<% if(user.getJob().equals("null")){ %>
-					esnull.
-				<% } else{ %>
-					${user.job}
-				<% } %>
-	         </p>
+				<%if(user.getJob().equals("")){ %>
+					<%if(user.getUser().equals(userLogin.getUser())){ %>
+						Add a job description
+						<a id="modificar-job" href="#" class="bar-item button hide-small padding-large hover-white" title="Add a job description" onclick="modifyProfile()"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+					<%} else{ %>
+						No Job description
+					<%} %>
+						
+				<%} else{ %>
+					${user.job }
+				<%} %>
+
 	         <p><i class="fa fa-home fa-fw margin-right text-theme"></i>
-				<% if(user.getLocation().equals("null")){ %>
-					esnull.
-				<% } else{ %>
+				<%if(user.getLocation().equals("")){ %>
+					<%if(user.getUser().equals(userLogin.getUser())){ %>
+						Add a location description
+						<a id="modificar-location" href="#" class="bar-item button hide-small padding-large hover-white" title="Add a location description"onclick="modifyProfile()"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+					<%}else{ %>
+						No Location description
+					<%} %>
+				<%} else{ %>
 					${user.location}
-				<% } %>
+				<%} %>
 	         </p>
-	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i> April 1, 1988</p>
+	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i>
+	         	<%if(user.getBirthdate().equals("")){ %>
+					<%if(user.getUser().equals(userLogin.getUser())){ %>
+						Add your birth date
+						<a id="modificar-birthdate" href="#" class="bar-item button hide-small padding-large hover-white" title="Add your birth date"onclick="modifyProfile()"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+					<%}else{ %>
+						No Birth Date information
+					<%} %>
+				<%} else{ %>
+					${user.birthdate}
+				<%} %>
+				</p>
+	        </div>
+	        <%if(user.getUser().equals(userLogin.getUser())){ %>
+	        <hr>
+	        <div class="center">
+	        	<div class="container" id="edit-profile">
+	         	<button type="button" class="button theme-d1 margin-bottom"onclick="modifyProfile()"><i class="fa fa-edit"></i>  Edit Profile</button>
+	         	</div>
+	         </div>
+	         <%} %>
+	      </div>
+	      <br>
+	      
+	     <!-- User Description --> 
+	      <div class="card round white hide-small">
+	        <div class="container">
+	          <p><b>Description</b></p>
+	          <p>
+				<%if(user.getDescription().equals("")){ %>
+					<%if(user.getUser().equals(userLogin.getUser())){ %>
+						Want to add a description?
+						<a id="modificar-info" href="#" class="bar-item button hide-small padding-large hover-white" title="Add User description"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
+					<%}else{ %>
+						No description for this user
+					<%} %>
+				<%} else{ %>
+					${user.description}
+				<%} %>
+	          </p>
 			 <% if(!isOwner.equals("Yes")){ %>
 				<div id="follow-div" class="center"></div>
 			 <% } %>
@@ -98,13 +149,9 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 	        <div class="container">
 	          <p>Interests</p>
 	          <p>
-	            <span class="tag small theme-d5">Religion</span>
-	            <span class="tag small theme-d4">Sport</span>
-	            <span class="tag small theme-d3">Music</span>
-	            <span class="tag small theme-d2">Politics</span>
-	            <span class="tag small theme-d1">Art</span>
-	            <span class="tag small theme">Food</span>
-	            <span class="tag small theme-l1">Technology</span>
+	          <%for(String interest : user.getInterests()){ %>
+	            <span class="tag small theme-d2"><%=interest%></span>
+	            <%} %>
 	          </p>
 	        </div>
 	      </div>
@@ -115,48 +162,9 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 	    
 	    <!-- Middle Column -->
 	    <div class="col m7">
-	      <div class="container card white round margin"><br>
-	        <img src="images/img_avatar2.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-	        <span class="right opacity">1 min</span>
-	        <h4>John Doe</h4><br>
-	        <hr class="clear">
-	        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-	          <div class="row-padding" style="margin:0 -16px">
-	            <div class="half">
-	              <img src="images/img_avatar2.png" style="width:100%" alt="Northern Lights" class="margin-bottom">
-	            </div>
-	            <div class="half">
-	              <img src="images/img_avatar2.png" style="width:100%" alt="Nature" class="margin-bottom">
-	          </div>
-	        </div>
-	        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
-	        <button type="button" class="button theme-d2 margin-bottom"><i class="fa fa-thumbs-down"></i>  Dislike</button> 
-	        <button type="button" class="button theme-d3 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-	      </div>
 	      
-	      <div class="container card white round margin"><br>
-	        <img src="images/img_avatar2.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-	        <span class="right opacity">16 min</span>
-	        <h4>Jane Doe</h4><br>
-	        <hr class="clear">
-	        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-	        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
-	        <button type="button" class="button theme-d2 margin-bottom"><i class="fa fa-thumbs-down"></i>  Dislike</button> 
-	        <button type="button" class="button theme-d3 margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
-	      </div>  
-	
-	      <div class="container card white round margin"><br>
-	        <img src="images/img_avatar2.png" alt="Avatar" class="left circle margin-right" style="width:60px">
-	        <span class="right opacity">32 min</span>
-	        <h4>Angie Jane</h4><br>
-	        <hr class="clear">
-	        <p>Have you seen this?</p>
-	        <img src="images/img_avatar2.png" style="width:100%" class="margin-bottom">
-	        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-	        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
-	        <button type="button" class="button theme-d2 margin-bottom"><i class="fa fa-thumbs-down"></i>  Dislike</button> 
-	        <button type="button" class="button theme-d3 margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
-	      </div> 
+	     <div id="tweets-container"></div>
+	     <div id="modifyProfile-container" style="display:none"></div>	
 	      
 	    <!-- End Middle Column -->
 	    </div>
@@ -191,6 +199,15 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 </div>
 
 <script>
+function modifyProfile() {
+	document.getElementById('tweets-container').style.display = 'none';
+	document.getElementById('modifyProfile-container').style.display = 'inline';
+	$('#modifyProfile-container').load('ModifyProfileController');
+}
+</script>
+
+
+<script>
 // Accordion
 function dropdown(id) {
     var x = document.getElementById(id);
@@ -214,6 +231,18 @@ function openNav() {
     }
 };
 </script>
+
+
+<script>
+//Enter Kraan as anonymous
+$('#add-job').click(function() {
+	$("#log-body").hide();
+	$("#web-body").show();
+	document.body.className = "theme-l5";
+	$('#main-page').load('TimeLineController');
+});
+</script>
+
 
 <script>
 function follow() {

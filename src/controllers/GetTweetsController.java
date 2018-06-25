@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.BeanTweet;
+import models.BeanUser;
 import utils.DAO;
 
 /**
@@ -61,8 +62,10 @@ public class GetTweetsController extends HttpServlet {
 		try {
 			DAO dao = new DAO();
 			
+			String tweetsToDisplay = (String) request.getParameter("Display");
+			System.out.println(tweetsToDisplay);
 			// Generate Query to get Tweets from DB
-			int number_of_tweets = 4;
+			int number_of_tweets = 9;
 			String getTweetsQuery = "SELECT * FROM Tweet LIMIT " + Integer.toString(number_of_tweets) + ";";
 			ResultSet tweet_rows = dao.executeSQL(getTweetsQuery);
 			
@@ -100,7 +103,7 @@ public class GetTweetsController extends HttpServlet {
 			
 			//pass tweets to request
 			request.setAttribute("tweets", tweets);
-			
+			request.setAttribute("display", tweetsToDisplay);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ViewTweets.jsp");
 			dispatcher.forward(request, response);	
 			

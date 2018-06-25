@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import models.BeanLogin;
 import models.BeanUser;
@@ -174,6 +175,29 @@ public class DAO extends HttpServlet {
 
 		name.first();
 		user.setName(name.getString(1));
+		
+		String surnameQuery = "SELECT Surname FROM Users WHERE Username = '" + username + "';";
+		ResultSet surname = executeSQL(surnameQuery);
+		surname.first();
+		user.setSurname(surname.getString(1));
+		
+		String genderQuery = "SELECT Gender FROM Users WHERE Username = '" + username + "';";
+		ResultSet gender = executeSQL(genderQuery);
+		gender.first();
+		user.setGender(gender.getString(1));
+		
+		user.setUser(username);
+		
+		String emailQuery = "SELECT Email FROM Users WHERE Username = '" + username + "';";
+		ResultSet Email = executeSQL(emailQuery);
+		Email.first();
+		user.setMail(Email.getString(1));	
+		
+		String descriptionQuery ="SELECT Description FROM Descriptions WHERE Username ='" + username + "';";
+		ResultSet description = executeSQL(descriptionQuery);
+		if(description.first()) {
+			user.setDescription(description.getString(1));
+		}
 		String jobQuery = "SELECT Job FROM Users WHERE Username = '" + username + "';";
 		ResultSet job = executeSQL(jobQuery);
 		//Aqui tractar el tema de que no hi hagi resultset
@@ -184,7 +208,7 @@ public class DAO extends HttpServlet {
 			}
 			
 		}else{
-			user.setJob("nada");
+			user.setJob("");
 		}
 		String locationQuery = "SELECT Location FROM Users WHERE Username = '" + username + "';";
 
@@ -199,9 +223,108 @@ public class DAO extends HttpServlet {
 			}
 			
 		}else{
-			user.setLocation("nada");
+			user.setLocation("");
 		}
+		String birthQuery = "SELECT Birthdate FROM Users WHERE Username = '" + username + "';";
+		System.out.println(birthQuery);
+		ResultSet birth = executeSQL(birthQuery);
+
+		if(birth.first()){
+			
+			if(birth.getString(1) != null){
+				String result = birth.getString(1);
+				user.setBirthdate(result);
+				System.out.println(birth.getString(1));
+			}
+			
+		}else{
+			user.setBirthdate("");
+		};
+		
+		String interestsQuery = "SELECT Interest FROM Interests WHERE Username = '" + username + "';";
+		System.out.println(interestsQuery);
+		ResultSet interests = executeSQL(interestsQuery);
+		
+		if(interests.first()){
+			int i = 0;
+			interests.beforeFirst();
+				while(interests.next()) {
+					i++;
+				}
+			String [] interestList = new String[i];
+			interests.beforeFirst();
+			i = 0;
+				while(interests.next()) {
+					interestList[i] = interests.getString(1);
+					//System.out.println(interests.getString(1));
+					i++;
+				}
+				
+				user.setInterests(interestList);		
+		}else{
+			user.setInterests(null);
+		};
+		
 		
 	}
+	public void modifyUser(BeanUser user) throws SQLException {
+		
+		String username = user.getUser();		
+		
+		/*String updateQuery = "UPDATE Users SET Name='" + user.getName() + "', Surname='" + user.getSurname() + "', Gender='" + user.getGender() + 
+				"', Job='" + user.getJob() + "', Location='" + user.getLocation() + "' WHERE Username ='" + username + "';";
+		System.out.println(updateQuery);
+		int result = UpdateSQL(updateQuery);*/
+
+		//Update Name
+		String name = user.getName();
+		if(!name.equals("")){
+			String updatename = "UPDATE Users SET Name='" + name + "' WHERE Username ='" + username + "';";
+			int result = UpdateSQL(updatename);
+		}
+		
+		//Update Surname
+		String surname = user.getSurname();
+		if(!surname.equals("")){
+			String updatesurname = "UPDATE Users SET Surname='" + surname + "' WHERE Username ='" + username + "';";
+			int result = UpdateSQL(updatesurname);
+		}		
+		
+		//Update Gender
+		String gender = user.getGender();
+		if(!gender.equals("")){
+			String updategender = "UPDATE Users SET Gender='" + gender + "' WHERE Username ='" + username + "';";
+			int result = UpdateSQL(updategender);
+		}
+		
+		//Update Gender
+		String location = user.getLocation();
+		if(!location.equals("")){
+			String updatelocation = "UPDATE Users SET Location='" + location + "' WHERE Username ='" + username + "';";
+			int result = UpdateSQL(updatelocation);
+		}
+		
+		//Update Job
+		String job = user.getJob();
+		if(!job.equals("")){
+			String updatejob = "UPDATE Users SET Job='" + job + "' WHERE Username ='" + username + "';";
+			int result = UpdateSQL(updatejob);
+		}
+		
+		//Update Birthdate
+		String birthdate = user.getBirthdate();
+		if(!birthdate.equals("")){
+			String updatebirthdate = "UPDATE Users SET Birthdate='" + birthdate + "' WHERE Username ='" + username + "';";
+			int result = UpdateSQL(updatebirthdate);
+		}
+		
+		//Update Description
+		String description = user.getDescription();
+		if(!description.equals("")){
+			String updatedescription = "UPDATE descriptions SET Description='" + description + "' WHERE Username ='" + username + "';";
+			int result = UpdateSQL(updatedescription);
+		}
+	}
+
 
 }

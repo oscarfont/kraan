@@ -48,7 +48,7 @@ $(document).ready(function(){
 <!-- Anonymous -->
 <div class="margin-top" align="center">
 <small>
-¿Don't you want to Register?<br>
+¿Don't want to Register?<br>
 Enter as anonymous User<br>
 </small>
 <a id="anonymous-button" href=# class="button margin-bottom" style="width:45%;background-color:#ced4da;margin-top:10px;">Anonymous</a>

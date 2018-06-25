@@ -39,12 +39,12 @@ public class ProfileController extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("Profile Controller");
 		String owner = (String) request.getParameter("own_profile");
+		System.out.println(owner);
 		BeanUser user = new BeanUser();
 		String username = null;
 		
 		try {
 
-			BeanUtils.populate(user, request.getParameterMap());
 			HttpSession session = request.getSession();
 			BeanLogin userlogin = (BeanLogin) session.getAttribute("user");
 			
@@ -59,6 +59,7 @@ public class ProfileController extends HttpServlet {
 			DAO dao = new DAO();
 			dao.profile(user, username);
 
+			user.setUser(username);
 			request.setAttribute("user", user);
 			request.setAttribute("own_profile", owner);
 			
