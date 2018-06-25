@@ -34,7 +34,9 @@ button:-moz-focusring, [type=button]:-moz-focusring, [type=reset]:-moz-focusring
 ::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}
 .select{padding:9px 0;width:100%;border:none;border-bottom:1px solid #ccc}
 .check,.radio{width:24px;height:24px;position:relative;top:6px}
-.search-user{width:70%;background-color:#fff;margin:3px;border:none;padding:4px;} .search-user:hover{background-color:#ffffaa;}
+.search-user{width:70%;} .list-user{width:100%;}
+.search-user, .list-user{background-color:#fff;margin:3px;border:none;padding:4px;} 
+.search-user:hover, .list-user:hover{background-color:#ffffaa;}
 
 /* DROPDOWN */
 .dropdown-click,.dropdown-hover{position:relative;display:inline-block;cursor:pointer}

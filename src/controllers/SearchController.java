@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import models.BeanLogin;
 import utils.DAO;
 
 @WebServlet("/SearchController")
@@ -23,8 +25,11 @@ public class SearchController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		String searchUser = (String) request.getParameter("content");
-		
 		if (searchUser == null) return;
+		
+		HttpSession session = request.getSession();
+		BeanLogin userlogin = (BeanLogin) session.getAttribute("user");
+		if (userlogin == null) return;
 			
 		System.out.println("SearchController, loading: " + searchUser);
 		
@@ -33,7 +38,7 @@ public class SearchController extends HttpServlet {
 			dao = new DAO();
 			
 			//get the number of occurrences
-			String query1 = "SELECT COUNT(U.Username) AS num FROM Users U WHERE U.Username LIKE '%" + searchUser + "%';";
+			String query1 = "SELECT COUNT(U.Username) AS num FROM Users U WHERE U.Username LIKE '%" + searchUser + "%' AND U.Username != '" + userlogin.getUser() + "';";
 			ResultSet checkQuery1 = dao.executeSQL(query1);
 			checkQuery1.first();
 			int numResults = checkQuery1.getInt("num");
@@ -42,7 +47,7 @@ public class SearchController extends HttpServlet {
 			int i = 0;
 			
 			//get the usernames
-			String query2 = "SELECT U.Username FROM Users U WHERE U.Username LIKE '%" + searchUser + "%';";
+			String query2 = "SELECT U.Username FROM Users U WHERE U.Username LIKE '%" + searchUser + "%' AND U.Username != '" + userlogin.getUser() + "';";
 			ResultSet checkQuery2 = dao.executeSQL(query2);
 			
 			//save the usernames

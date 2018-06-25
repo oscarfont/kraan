@@ -10,9 +10,14 @@
 <%
 	BeanTweet[] tweets = (BeanTweet[]) request.getAttribute("tweets");
 	BeanLogin user = null;
+	boolean admin = false;
 	if(session.getAttribute("user") != null){
-		user = (BeanLogin) session.getAttribute("user"); 
+		user = (BeanLogin) session.getAttribute("user");
 	}
+	if(session.getAttribute("admin") != null){
+		admin = (boolean) session.getAttribute("admin");
+	}
+	System.out.println(admin);
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -20,73 +25,52 @@
 <body>
 
 <c:forEach items="${tweets}" var="tweet">
-	<div class="container card white round margin"><br>
+	<div id="tweet_${tweet.id}" class="container card white round margin"><br>
      	<!-- Button to delete or edit tweet -->
-     	<c:if test="${user.user == tweet.author }">
-	     	<div id="tweet-options">
-	     		<div class="size">
-	     			<input type="text" name="test" value="..." class="right field" readonly="readonly" />
-					<ul class="right list">
-						<li>Edit</li>
-						<li>Delete</li>
-					</ul>
-				</div>
-	     	</div>
+     	<c:if test="${user.user == tweet.author or admin == true}">
+     		<button id="tweet-config-button${tweet.id}" onclick="settings_button(${tweet.id})" class="fa fa-cog right"></button>
+     		<div id="tweet-config-${tweet.id}" class="right margin-right" style="display:none;z-index:2;">
+				<div id="tweet-edit" class="theme-l5 right" onclick="editTweet(${tweet.id})" style="padding:10px;width:80px;margin-right:5px;text-align:center;">Edit</div>
+				<div id="tweet-delete-${tweet.id}" onclick="deleteTweet(${tweet.id})" class="theme-l5 right" style="padding:10px;width:80px;margin-right:5px;text-align:center;">Delete</div>
+			</div>
        </c:if>
        <img src="images/img_avatar2.png" alt="Avatar" class="left circle margin-right" style="width:60px">
        <h4>${tweet.author}</h4>
        <span class="left opacity">${tweet.date}</span><br>
        <hr class="clear">
        <p>${tweet.content}</p>
-       <c:if test="${tweet.interests != null }">
-	       <p>Interests:
-		       <c:forEach items="${tweet.interests}" var="interest">
-		       		<c:out value="${interest} "></c:out>
-		       </c:forEach>
-	       </p>
-       </c:if>
+       <div class="right">
+	       <c:if test="${tweet.interests != null }">
+		       <small>
+			       <c:forEach items="${tweet.interests}" var="interest">
+			       		<c:out value="#${interest} "></c:out>
+			       </c:forEach>
+		       </small>
+	       </c:if>
+       </div>
        <button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
-       <button type="button" class="button theme-d2 margin-bottom"><i class="fa fa-thumbs-down"></i>  Retweet</button> 
+       <button type="button" class="button theme-d2 margin-bottom"><i class="fa fa-retweet"></i>  Retweet</button> 
        <button type="button" class="button theme-d3 margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
 	</div>
 </c:forEach>
 
 </body>
 <script>
-	(function($){
-		$.fn.styleddropdown = function(){
-			return this.each(function(){
-				var obj = $(this)
-				obj.find('.field').click(function() { //onclick event, 'list' fadein
-				obj.find('.list').fadeIn(400);
-				
-				$(document).keyup(function(event) { //keypress event, fadeout on 'escape'
-					if(event.keyCode == 27) {
-					obj.find('.list').fadeOut(400);
-					}
-				});
-				
-				obj.find('.list').hover(function(){ },
-					function(){
-						$(this).fadeOut(400);
-					});
-				});
-				
-				obj.find('.list li').click(function() { //onclick event, change field value with selected 'list' item and fadeout 'list'
-				obj.find('.field')
-					.val($(this).html())
-					.css({
-						'background':'#fff',
-						'color':'#333'
-					});
-				obj.find('.list').fadeOut(400);
-				});
-			});
-		};
-	})(jQuery);
-	
-	$(function(){
-		$('.size').styleddropdown();
-	});
+// Edit and delete tweets
+function settings_button(id) {
+	console.log('#tweet-config-'+id);
+	$('#tweet-config-'+id).toggle();
+}
+
+function editTweet(id){
+	var code = 1;
+	$('#tweet_'+id).empty();
+	$('#tweet_'+id).load('EditTweetController', {tweet_id:id, action:code});
+}
+
+function deleteTweet(id) {
+	$('#tweet-delete-'+id).load('DeleteTweetController', {tweet_id:id});
+	location.reload();
+}
 </script>
 </html>

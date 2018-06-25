@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.ResultSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,6 +54,12 @@ public class LoginController extends HttpServlet {
 		    		HttpSession session = request.getSession();
 		    		
 		    		if(session.getAttribute("user") == null){
+		    			String isadminquery = "SELECT IsAdmin FROM Users WHERE Username='"+ login.getUser() + "';";
+		    			ResultSet rs = dao.executeSQL(isadminquery);
+		    			if(rs.first()){
+		    				boolean isAdmin = rs.getBoolean("IsAdmin");
+		    				session.setAttribute("admin", isAdmin);
+		    			}
 		    			session.setAttribute("user",login);
 		    		}
 		    		

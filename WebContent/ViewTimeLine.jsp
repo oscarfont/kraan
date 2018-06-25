@@ -20,8 +20,7 @@ $(document).ready(function() {
 	  <!-- The Grid -->
 	  <div class="row">
 	    <!-- Left Column -->
-	    <div class="col m3">
-	    <p> Left Column of timeline </p>  
+	    <div class="col m3"> 
 	      <!-- Interests --> 
 	      <div class="card round white hide-small">
 	        <div class="container">
@@ -43,7 +42,6 @@ $(document).ready(function() {
 	    
 	    <!-- Middle Column -->
 	    <div class="col m7">
-		<p> Middle Column of timeline </p>
 		
 		<!-- Tweet -->
 		<c:if test="${user != null}">
@@ -56,8 +54,7 @@ $(document).ready(function() {
 	    </div>
 	    
 	    <!-- Right Column -->
-	    <div class="col m2">
-	    <p> Right Column of timeline </p>   
+	    <div class="col m2"> 
 	      <div class="card round white padding-16 center">
 	        <p>ADS</p>
 	      </div>
@@ -79,7 +76,8 @@ $(document).ready(function() {
 	
 	<!-- Footer -->
 	<footer class="container theme-d3 padding-16">
-	  <h5>Footer</h5>
+	  <h5>&copy; EPAW, 2018.</h5>
+	  <small>Marc Canal, Óscar Font & Lucía Gasión.</small>
 	</footer>
 	 
 	<script>
@@ -105,6 +103,10 @@ $(document).ready(function() {
 	        x.className = x.className.replace(" show", "");
 	    }
 	};
+	
+	$(document).ready(function() {
+		$('#logout-button').load('MenuController');
+	});
 	</script>
 	
 </div>

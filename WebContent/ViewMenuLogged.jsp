@@ -4,7 +4,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $("#LogoutController").click(function(event) {
-        $('#main-page').load('ContentController',{content: $(this).attr('id')});
+        $('#main-page').load('LogoutController');
         document.getElementById('log-body').style.display = 'inline';
         document.getElementById('web-body').style.display = 'none';
         document.body.className = "theme-l6";

@@ -25,7 +25,6 @@ public class AdminController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HttpSession session = request.getSession();
-		
 		BeanLogin user = (BeanLogin) session.getAttribute("user");
 		if(user == null) return;
 		
@@ -35,15 +34,14 @@ public class AdminController extends HttpServlet {
 		try {
 			dao = new DAO();
 			String query = "SELECT U.IsAdmin FROM Users U WHERE U.Username = '" + user.getUser() + "';";
-			System.out.println(query);
+
 			ResultSet checkQuery = dao.executeSQL(query);
 			boolean queryExists = checkQuery.first();
 	
 			if(queryExists)
 			{			
 				if(checkQuery.getInt("U.IsAdmin") == 1) {
-					session.setAttribute("admin", "admin");
-					
+					session.setAttribute("admin", true);
 					
 					RequestDispatcher dispatcher = request.getRequestDispatcher("ViewAdmin.jsp");
 					dispatcher.forward(request, response);
