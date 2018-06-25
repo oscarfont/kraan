@@ -25,7 +25,6 @@ $(document).ready(function() {
 	    document.getElementById('web-body').style.display = 'inline';
 	    document.body.className = "theme-l5";
 	
-	    var tweetstoDisplay = <%=isOwner%>;
 	    var tweetstoDisplay = "<%=requestUsername%>";
 	    $('#tweets-container').load("GetTweetsController", {Display:tweetstoDisplay});
 });
@@ -106,6 +105,11 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 	        	<div class="container" id="edit-profile">
 	         	<button type="button" class="button theme-d1 margin-bottom"onclick="modifyProfile()"><i class="fa fa-edit"></i>  Edit Profile</button>
 	         	</div>
+	         	<c:if test="${admin == true}">
+					<div class="container" id="delete-profile">
+	         		<button type="button" id="delete-user-button" class="button theme-d1 margin-bottom"><i class="fa fa-times"></i>  Delete Profile</button>
+	         		</div>
+				</c:if>	
 	         </div>
 	         <%} %>
 	      </div>
@@ -249,6 +253,13 @@ $('#add-job').click(function() {
 	$("#web-body").show();
 	document.body.className = "theme-l5";
 	$('#main-page').load('TimeLineController');
+});
+</script>
+
+<script>
+$('#delete-user-button').click(function(){
+	var user_name = "<%=requestUsername%>";
+	$('#main-page').load('DeleteUserController', {username:user_name});
 });
 </script>
 
