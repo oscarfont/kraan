@@ -41,7 +41,7 @@ public class DeleteTweetController extends HttpServlet {
 			
 			DAO dao = new DAO();
 			String deleteTweet = "DELETE FROM TWEET WHERE Tweet_Id="+ tweet_id + ";";
-			String deleteInterests = "DELETE FROM tweet_has_interests WHERE Tweet_Id"+ tweet_id + ";";
+			String deleteInterests = "DELETE FROM tweet_has_interests WHERE Tweet_Id="+ tweet_id + ";";
 			
 			dao.UpdateSQL(deleteTweet);
 			dao.UpdateSQL(deleteInterests);

@@ -31,7 +31,7 @@
      		<button id="tweet-config-button${tweet.id}" onclick="settings_button(${tweet.id})" class="fa fa-cog right"></button>
      		<div id="tweet-config-${tweet.id}" class="right margin-right" style="display:none;z-index:2;">
 				<div id="tweet-edit" class="theme-l5 right" onclick="editTweet(${tweet.id})" style="padding:10px;width:80px;margin-right:5px;text-align:center;">Edit</div>
-				<div id="tweet-delete" class="theme-l5 right" style="padding:10px;width:80px;margin-right:5px;text-align:center;">Delete</div>
+				<div id="tweet-delete-${tweet.id}" onclick="deleteTweet(${tweet.id})" class="theme-l5 right" style="padding:10px;width:80px;margin-right:5px;text-align:center;">Delete</div>
 			</div>
        </c:if>
        <img src="images/img_avatar2.png" alt="Avatar" class="left circle margin-right" style="width:60px">
@@ -68,8 +68,9 @@ function editTweet(id){
 	$('#tweet_'+id).load('EditTweetController', {tweet_id:id, action:code});
 }
 
-$('#tweet-delete').click(function() {
-	//...
-})
+function deleteTweet(id) {
+	$('#tweet-delete-'+id).load('DeleteTweetController', {tweet_id:id});
+	location.reload();
+}
 </script>
 </html>
