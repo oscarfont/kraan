@@ -63,7 +63,6 @@ function settings_button(id) {
 }
 
 function editTweet(id){
-	alert("He entrado!");
 	var code = 1;
 	$('#tweet_'+id).empty();
 	$('#tweet_'+id).load('EditTweetController', {tweet_id:id, action:code});

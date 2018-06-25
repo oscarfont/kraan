@@ -45,17 +45,14 @@ public class GetFollowController extends HttpServlet {
 			if(option.equals("following"))
 			{
 				String query1 = "SELECT COUNT(Following) AS num FROM users_follows_users WHERE User = '" + username + "';";
-				System.out.println("---------------------------------------");
-				System.out.println(query1);
 				ResultSet rs1 = dao.executeSQL(query1);
+				
 				if(rs1.first())
 				{
 					int numUsers = rs1.getInt("num");
-					System.out.println("num total: " + numUsers);
 				
 					//get the result
 					String query2 = "SELECT Following FROM users_follows_users WHERE User = '" + username + "';";
-					System.out.println(query2);
 					ResultSet rs2 = dao.executeSQL(query2);
 					if(rs2.first())
 					{
@@ -67,15 +64,12 @@ public class GetFollowController extends HttpServlet {
 				    	while (rs2.next()) {
 				    		BeanUser user = new BeanUser();
 				    		user.setUser(rs2.getString("Following"));
-				    		System.out.println(rs2.getString("Following"));
 				    		followings[current] = user;
 				    		current++;
 				    	}
 					
 						//pass users to request
 						request.setAttribute("followings", followings);
-						
-						System.out.println("---------------------------------------");
 					
 						RequestDispatcher dispatcher = request.getRequestDispatcher("ViewFollowings.jsp");
 						dispatcher.forward(request, response);
@@ -86,17 +80,14 @@ public class GetFollowController extends HttpServlet {
 			else if(option.equals("followers"))
 			{
 				String query1 = "SELECT COUNT(User) AS num FROM users_follows_users WHERE Following = '" + username + "';";
-				System.out.println("---------------------------------------");
-				System.out.println(query1);
 				ResultSet rs1 = dao.executeSQL(query1);
+				
 				if(rs1.first())
 				{
 					int numUsers = rs1.getInt("num");
-					System.out.println("num total: " + numUsers);
 				
 					//get the result
 					String query2 = "SELECT User FROM users_follows_users WHERE Following = '" + username + "';";
-					System.out.println(query2);
 					ResultSet rs2 = dao.executeSQL(query2);
 					if(rs2.first())
 					{
@@ -108,15 +99,12 @@ public class GetFollowController extends HttpServlet {
 				    	while (rs2.next()) {
 				    		BeanUser user = new BeanUser();
 				    		user.setUser(rs2.getString("User"));
-				    		System.out.println(rs2.getString("User"));
 				    		followers[current] = user;
 				    		current++;
 				    	}
 					
 						//pass users to request
 						request.setAttribute("followers", followers);
-						
-						System.out.println("---------------------------------------");
 					
 						RequestDispatcher dispatcher = request.getRequestDispatcher("ViewFollowers.jsp");
 						dispatcher.forward(request, response);

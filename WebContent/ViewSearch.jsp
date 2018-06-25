@@ -17,13 +17,6 @@
 </div>
 
 <script>
-/*$('#search-result').click(function(){
-	$('button').click(function(){
-	   var uid = $(this).attr('id');
-	   $('#main-page').load('ProfileController');
-	});
-});*/
-
 function gotoProfile(id){
 	$('#main-page').load('ProfileController', {own_profile:id});
 }
