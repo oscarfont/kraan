@@ -16,15 +16,17 @@ $(document).ready(function() {
 <% BeanUser user = (BeanUser) request.getAttribute("user"); 
 BeanLogin userLogin = (BeanLogin) session.getAttribute("user");
 
-String admin = null;
+boolean admin = false;
 String owner = "Yes";
 String sessionUsername = userLogin.getUser();
 String requestUsername = user.getUser();
 String isOwner = (String) request.getAttribute("own_profile");
 
 if(session.getAttribute("admin") != null){
-	admin = session.getAttribute("admin").toString(); 
+	admin = (boolean) session.getAttribute("admin"); 
 }
+
+System.out.println(admin);
 %>
 
 <script>
@@ -33,6 +35,15 @@ $('#follow-div').load('FollowController', {following:tofollow,checking:"Yes"});
 
 $('#showFollowing').load('GetFollowController', {currentUser:tofollow,option:'following'});
 $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'followers'});
+</script>
+
+<script>
+<% if(isOwner.equals("Yes")) {
+	if(admin == true) { %>
+		//test admin
+		$('#welcome').load('AdminController');
+	<% }
+} %>
 </script>
 
 <!-- Page Container -->
@@ -98,15 +109,6 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 	        </div>
 	      </div>
 	      <br>
-	      
-	      <!-- Alert Box -->
-	      <div class="container display-container round theme-l4 border theme-border margin-bottom hide-small">
-	        <span onclick="this.parentElement.style.display='none'" class="button theme-l3 display-topright">
-	          <i class="fa fa-remove"></i>
-	        </span>
-	        <p><strong>Hey!</strong></p>
-	        <p>People are looking at your profile. Find out who.</p>
-	      </div>
 	    
 	    <!-- End Left Column -->
 	    </div>
@@ -160,43 +162,16 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 	    </div>
 	    
 	    <!-- Right Column -->
-	    <div class="col m2">
-	      <div class="card round white center">
-	        <div class="container">
-	          <p>Upcoming Events:</p>
-	          <img src="images/img_avatar2.png" alt="Forest" style="width:100%;">
-	          <p><strong>Holiday</strong></p>
-	          <p>Friday 15:00</p>
-	          <p><button class="button block theme-l4">Info</button></p>
-	        </div>
-	      </div>
-	      <br>
-	      
-	      <div class="card round white center">
-	        <div class="container">
-	          <p>Friend Request</p>
-	          <img src="images/img_avatar2.png" class="circle" alt="Avatar" style="width:50%"><br>
-	          <span>Jane Doe</span>
-	          <div class="row opacity">
-	            <div class="half">
-	              <button class="button block green section" title="Accept"><i class="fa fa-check"></i></button>
-	            </div>
-	            <div class="half">
-	              <button class="button block red section" title="Decline"><i class="fa fa-remove"></i></button>
-	            </div>
-	          </div>
-	        </div>
+	    <div class="col m2">	      
+	      <div class="card round white padding-16 center">
+	        <img src="images/ad1.jpg" class="opacity" style="width:90%">
 	      </div>
 	      <br>
 	      
 	      <div class="card round white padding-16 center">
-	        <p>ADS</p>
+	        <img src="images/ad2.jpg" class="opacity" style="width:90%">
 	      </div>
 	      <br>
-	      
-	      <div class="card round white padding-32 center">
-	        <p><i class="fa fa-bug xxlarge"></i></p>
-	      </div>
 	      
 	    <!-- End Right Column -->
 	    </div>
@@ -239,15 +214,6 @@ function openNav() {
     }
 };
 </script>
-
-<c:if test="${sessionUsername.equals(requestUsername)}">
-	<script>
-		//test admin
-		$(document).ready(function() {
-			$('#welcome').load('AdminController');
-		});
-	</script>
-</c:if>
 
 <script>
 function follow() {
