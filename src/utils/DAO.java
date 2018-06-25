@@ -267,9 +267,12 @@ public class DAO extends HttpServlet {
 		};
 		
 	}
-	public void modifyUser(BeanUser user,  HttpServletRequest request, HttpServletResponse response) {
-		
-		
+	public void modifyUser(BeanUser user) throws SQLException {
+		String username = user.getUser();
+		String updateQuery = "UPDATE Users SET Name='" + user.getName() + "', Surname='" + user.getSurname() + "', Gender='" + user.getGender() + 
+				"', Job='" + user.getJob() + "', Location='" + user.getLocation() + "' WHERE Username ='" + username + "';";
+		System.out.println(updateQuery);
+		int result = UpdateSQL(updateQuery);
 	}
 
 }

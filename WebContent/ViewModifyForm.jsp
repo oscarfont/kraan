@@ -8,7 +8,7 @@ $(document).ready(function(){
 		  /* DEBUG
 		  alert( "HOLAAA" );*/
 		  event.preventDefault();
-		  $('#log-body').load('ModifyProfileController',$("#registerForm").serialize());
+		  $('#main-page').load('ModifyProfileController',$("#registerForm").serialize());
 
 	});
 });
