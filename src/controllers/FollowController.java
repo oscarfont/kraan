@@ -25,13 +25,18 @@ public class FollowController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		HttpSession session = request.getSession();
-		BeanLogin user = (BeanLogin) session.getAttribute("user");
+		BeanLogin user = null;
+		if(session.getAttribute("user") != null){
+			user = (BeanLogin) session.getAttribute("user");
+		}
 		String tofollow = (String) request.getParameter("following");
 		String checking = (String) request.getParameter("checking");
 		
 		try {
 			
 			DAO dao = new DAO();
+			
+			if(user == null) return;
 			
 			//check the following state at loading the page
 			if(checking != null){

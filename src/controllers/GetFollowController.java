@@ -35,8 +35,13 @@ public class GetFollowController extends HttpServlet {
 		//if the user is the owner
 		if(username.equals("Yes")){
 			HttpSession session = request.getSession();
-			BeanLogin user = (BeanLogin) session.getAttribute("user");
-			username = user.getUser();
+			BeanLogin user = null;
+			if(session.getAttribute("user") != null){
+				user = (BeanLogin) session.getAttribute("user");
+				username = user.getUser();
+			}
+			// If there is no Session
+			if(user == null) return;
 		}
 
 		try {

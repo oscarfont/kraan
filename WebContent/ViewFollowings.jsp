@@ -11,8 +11,17 @@ for(int i = 0; i < users.length; i++){
 
 <script>
 function gotoProfile(id){
-	<% BeanLogin checkUser = (BeanLogin) session.getAttribute("user");
-	String checkUsername = checkUser.getUser(); %>
+	<% 
+	
+		BeanLogin checkUser = null;
+		String checkUsername = null;
+		
+		if(session.getAttribute("user") != null){
+			checkUser = (BeanLogin) session.getAttribute("user");
+			checkUsername = checkUser.getUser(); 
+		} 
+	
+	%>
 	
 	var checkUsername = "<%=checkUsername%>";
 	

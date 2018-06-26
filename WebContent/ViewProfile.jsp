@@ -3,8 +3,16 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
  
 <% BeanUser user = (BeanUser) request.getAttribute("user"); 
-BeanLogin userLogin = (BeanLogin) session.getAttribute("user");
-String sessionUsername = userLogin.getUser();
+BeanLogin userLogin = null;
+String sessionUsername = null;
+
+if(session.getAttribute("user") != null){
+	userLogin = (BeanLogin) session.getAttribute("user");
+	if(userLogin.getUser() != null){
+		sessionUsername = userLogin.getUser();
+	}
+}
+
 String requestUsername = user.getUser();
 
 boolean admin = false;
@@ -63,7 +71,7 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 	         <hr>
 	         <p><i class="fa fa-pencil fa-fw margin-right text-theme"></i>
 				<%if(user.getJob().equals("")){ %>
-					<%if(user.getUser().equals(userLogin.getUser())){ %>
+					<%if(user.getUser().equals(sessionUsername)){ %>
 						Add a job description
 						<a id="modificar-job" href="#" class="bar-item button hide-small padding-large hover-white" title="Add a job description" onclick="modifyProfile()"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
 					<%} else{ %>
@@ -76,7 +84,7 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 
 	         <p><i class="fa fa-home fa-fw margin-right text-theme"></i>
 				<%if(user.getLocation().equals("")){ %>
-					<%if(user.getUser().equals(userLogin.getUser())){ %>
+					<%if(user.getUser().equals(sessionUsername)){ %>
 						Add a location description
 						<a id="modificar-location" href="#" class="bar-item button hide-small padding-large hover-white" title="Add a location description"onclick="modifyProfile()"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
 					<%}else{ %>
@@ -88,7 +96,7 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 	         </p>
 	         <p><i class="fa fa-birthday-cake fa-fw margin-right text-theme"></i>
 	         	<%if(user.getBirthdate().equals("")){ %>
-					<%if(user.getUser().equals(userLogin.getUser())){ %>
+					<%if(user.getUser().equals(sessionUsername)){ %>
 						Add your birth date
 						<a id="modificar-birthdate" href="#" class="bar-item button hide-small padding-large hover-white" title="Add your birth date"onclick="modifyProfile()"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
 					<%}else{ %>
@@ -99,7 +107,7 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 				<%} %>
 				</p>
 	        </div>
-	        <%if((user.getUser().equals(userLogin.getUser()) || admin)){ %>
+	        <%if((user.getUser().equals(sessionUsername)) || admin){ %>
 	        <hr>
 	        <div class="center">
 	        	<div class="container" id="edit-profile">
@@ -121,7 +129,7 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 	          <p><b>Description</b></p>
 	          <p>
 				<%if(user.getDescription().equals("")){ %>
-					<%if(user.getUser().equals(userLogin.getUser())){ %>
+					<%if(user.getUser().equals(sessionUsername)){ %>
 						Want to add a description?
 						<a id="modificar-info" href="#" class="bar-item button hide-small padding-large hover-white" title="Add User description"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
 					<%}else{ %>
@@ -159,7 +167,7 @@ $('#showFollowers').load('GetFollowController', {currentUser:tofollow,option:'fo
 					<span class="tag small theme-d2"><%=interest%></span>
 					<%}
 					}else{
-						if(user.getUser().equals(userLogin.getUser())){%>
+						if(user.getUser().equals(sessionUsername)){%>
 							Add your interests!
 							<a id="modificar-info" href="#" class="bar-item button hide-small padding-large hover-white" title="Add your Interests" onclick="modifyProfile()"><i class="fa fa-plus-square fa-fw text-theme"></i></a>
 						<%}
