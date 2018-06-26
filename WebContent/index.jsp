@@ -33,7 +33,11 @@
 	  <a href="#" class="bar-item button padding-large theme-d4" id="kraan-button"><i class="fa fa-home margin-right"></i>Kraan</a>
 	  <a id="timeline-button" href="#" class="bar-item button hide-small padding-large hover-white" title="TimeLine"><i class="fa fa-globe"></i></a>
 	  <a id="profile-button" href="#" class="bar-item button hide-small padding-large hover-white" title="User Profile"><i class="fa fa-user"></i></a>
-	  <div id="logout-button" class="right"></div>
+	  <div id="logout-button" class="right">
+	  	<c:if test="${user == null}">
+			<jsp:include page="ViewMenuLogged.jsp" />
+		</c:if>	
+	  </div>
 	  <input type="text" id="search-text" class="search-bar right" style="margin-right:10px" placeholder="Search user...">
       <button type="button" id="search-button" class="search-bar theme-l1 right"><i class="fa fa-search"></i></button>
     </div>

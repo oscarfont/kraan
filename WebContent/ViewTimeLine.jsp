@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" session="true"%>
+    pageEncoding="UTF-8" import="models.BeanLogin" session="true"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+
+<% 
+
+	BeanLogin user = null;
+	if(session.getAttribute("user") != null){
+		user = (BeanLogin) session.getAttribute("user"); 
+	}
+
+%>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -26,9 +35,11 @@ $(document).ready(function() {
         <div class="dropdown-timeline">
 	        <button class="dropdown-button theme-d4">Filter Timeline<i class="fa fa-caret-down"></i></button>
 	          <div class="dropdown-content">
-	          	<a href="#" onclick="returnTimeline()">Global Timeline</a> 
-	          	<a href="#" id="filter-following">Following Timeline</a>
-	          	<a href="#" id="filter-interests">Interests Timeline</a>
+	          	<a href="#" onclick="returnTimeline()">Global Timeline</a>
+	         	<c:if test="${user != null}">
+					<a href="#" id="filter-following">Following Timeline</a>
+	          		<a href="#" id="filter-interests">Interests Timeline</a>
+				</c:if> 
 	          </div>
 	    </div>
       	<br><br><br>
@@ -115,10 +126,9 @@ $(document).ready(function() {
 	};
 	
 	$(document).ready(function() {
-		<%if(session.getAttribute("user") != null){%>
+		<%if(user != null){%>
 			$('#logout-button').load('MenuController');
 		<%}%>
-		
 	});
 	
 	$('#filter-following').click(function() {
