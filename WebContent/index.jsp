@@ -125,6 +125,7 @@ $('#timeline-button').click(function() {
 
 // Search users
 $('#search-button').click(function() {
+	console.log("HOLAAA");
 	var info = $('#search-text').val();
 	$('#search-done').load('SearchController',{content:info});
 	//$('#search-done').append('<button>Hola!</button>'); 

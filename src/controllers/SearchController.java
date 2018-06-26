@@ -29,7 +29,7 @@ public class SearchController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		BeanLogin userlogin = (BeanLogin) session.getAttribute("user");
-		if (userlogin == null) return;
+		//if (userlogin == null) return;
 			
 		System.out.println("SearchController, loading: " + searchUser);
 		
@@ -37,8 +37,18 @@ public class SearchController extends HttpServlet {
 		try {
 			dao = new DAO();
 			
+			String query1 = "";
+			String query2 = "";
+			
+			if(userlogin == null){
+				query1 = "SELECT COUNT(U.Username) AS num FROM Users U WHERE U.Username LIKE '%" + searchUser + "%';";
+				query2 = "SELECT U.Username FROM Users U WHERE U.Username LIKE '%" + searchUser + "%';";
+			}else{
+				query1 = "SELECT COUNT(U.Username) AS num FROM Users U WHERE U.Username LIKE '%" + searchUser + "%' AND U.Username != '" + userlogin.getUser() + "';";
+				query2 = "SELECT U.Username FROM Users U WHERE U.Username LIKE '%" + searchUser + "%' AND U.Username != '" + userlogin.getUser() + "';";
+			}
+			
 			//get the number of occurrences
-			String query1 = "SELECT COUNT(U.Username) AS num FROM Users U WHERE U.Username LIKE '%" + searchUser + "%' AND U.Username != '" + userlogin.getUser() + "';";
 			ResultSet checkQuery1 = dao.executeSQL(query1);
 			checkQuery1.first();
 			int numResults = checkQuery1.getInt("num");
@@ -47,7 +57,6 @@ public class SearchController extends HttpServlet {
 			int i = 0;
 			
 			//get the usernames
-			String query2 = "SELECT U.Username FROM Users U WHERE U.Username LIKE '%" + searchUser + "%' AND U.Username != '" + userlogin.getUser() + "';";
 			ResultSet checkQuery2 = dao.executeSQL(query2);
 			
 			//save the usernames
