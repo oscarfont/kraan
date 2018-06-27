@@ -39,7 +39,15 @@ $(document).ready(function() {
 	         	<c:if test="${user != null}">
 					<a href="#" id="filter-following">Following Timeline</a>
 	          		<a href="#" id="filter-interests">Interests Timeline</a>
-				</c:if> 
+	          		<script>
+	          			$('#profile-button').show();
+	          		</script>
+				</c:if>
+				<c:if test="${user == null}">
+	          		<script>
+	          			$('#profile-button').hide();
+	          		</script>
+				</c:if>  
 	          </div>
 	    </div>
       	<br><br><br>

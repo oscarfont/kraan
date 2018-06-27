@@ -112,12 +112,10 @@
 $('#kraan-button').click(function() {
     location.reload();
 });
-
 $('#profile-button').click(function() {
 	var owner = "Yes";
     $('#main-page').load('ProfileController', {own_profile:owner});
 });
-
 // View Time Line with button
 $('#timeline-button').click(function() {
 	$('#main-page').load('TimeLineController');

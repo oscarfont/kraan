@@ -27,7 +27,7 @@
 <% if(tweets != null){ %>
 	<%if(tweetsToDisplay.equals("All")){ %>
 		<c:forEach items="${tweets}" var="tweet">
-		<div class="container card white round margin"><br>
+		<div id="tweet_${tweet.id}" class="container card white round margin"><br>
 	     	<!-- Button to delete or edit tweet -->
 	     	<c:if test="${user.user == tweet.author or admin == true}">
 	     		<button id="tweet-config-button${tweet.id}" onclick="settings_button(${tweet.id})" class="fa fa-cog right"></button>
@@ -62,7 +62,7 @@
 		<c:if test="${display == tweet.author}">
 			<% count++; %>
 	     	<!-- Button to delete or edit tweet -->
-	     	<div class="container card white round margin"><br>
+	     	<div id="tweet_${tweet.id}" class="container card white round margin"><br>
 	     	<c:if test="${user.user == tweet.author or admin == true }">
 					<button id="tweet-config-button${tweet.id}" onclick="settings_button(${tweet.id})" class="fa fa-cog right"></button>
 	     		<div id="tweet-config-${tweet.id}" class="right margin-right" style="display:none;z-index:2;">
@@ -75,13 +75,15 @@
 	     	<span class="left opacity">${tweet.date}</span><br>
 	     	<hr class="clear">
 	     	<p>${tweet.content}</p>
-	     	<c:if test="${tweet.interests != null }">
-	     		<p>Interests:
-	     		<c:forEach items="${tweet.interests}" var="interest">
-	     			<c:out value="${interest} "></c:out>
-	     		</c:forEach>
-	     		</p>
+	     	<div class="right">
+	     		<c:if test="${tweet.interests != null }">
+	     		<small>
+				       <c:forEach items="${tweet.interests}" var="interest">
+				       		<c:out value="#${interest} "></c:out>
+				       </c:forEach>
+			    </small>
 	     	</c:if>
+	     	</div>
 	     	<button type="button" class="button theme-d1 margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
 	     	<button type="button" class="button theme-d2 margin-bottom"><i class="fa fa-thumbs-down"></i>  Retweet</button> 
 	     	<button type="button" class="button theme-d3 margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
@@ -107,14 +109,17 @@ function settings_button(id) {
 }
 
 function editTweet(id){
+	//DEBUG
+	//console.log("EDITAR TWEET YAAA");
 	var code = 1;
 	$('#tweet_'+id).empty();
 	$('#tweet_'+id).load('EditTweetController', {tweet_id:id, action:code});
+	location.reload();
 }
 
 function deleteTweet(id) {
 	$('#tweet-delete-'+id).load('DeleteTweetController', {tweet_id:id});
-	location.reload();
+	location.reload(true);
 }
 </script>
 </html>
